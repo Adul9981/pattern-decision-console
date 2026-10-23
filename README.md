@@ -64,12 +64,12 @@ python3 tools/update_pattern_decision_live.py \
 - 网站：`/var/www/pattern-decision`
 - 刷新状态：`/var/lib/pattern-decision`
 
-仓库地址为 <https://github.com/Adul9981/pattern-decision-console>，GitHub 因地址字符限制使用英文名 `pattern-decision-console`，项目标题仍是“形态决策台”。仓库为私有，先让所有者把朋友的 GitHub 账号加入 Collaborator，或给服务器配置只读 Deploy Key，再执行：
+仓库地址为 <https://github.com/Adul9981/pattern-decision-console>，GitHub 因地址字符限制使用英文名 `pattern-decision-console`，项目标题仍是“形态决策台”。仓库为公开仓库，可直接通过 HTTPS 克隆；无需先接受 Collaborator 邀请，也无需在服务器配置 Deploy Key：
 
 ```bash
 sudo apt-get update
 sudo apt-get install -y python3 nginx rsync
-sudo git clone git@github.com:Adul9981/pattern-decision-console.git /opt/pattern-decision
+sudo git clone https://github.com/Adul9981/pattern-decision-console.git /opt/pattern-decision
 cd /opt/pattern-decision
 sudo bash scripts/install.sh
 ```
@@ -144,4 +144,4 @@ scripts/install.sh        云服务器安装脚本
 
 ## 使用边界
 
-本仓库按私有研究项目交付。未经项目所有者许可，不将页面、数据或分析内容公开转载、再分发或用于对外商业服务。
+本仓库公开可见，便于审阅、部署与协作；仓库未附开源许可证，除 GitHub 服务条款及本说明明确允许的用途外，不视为授予转载、再分发或对外商业使用许可。原始大快照不随本仓库公开。
