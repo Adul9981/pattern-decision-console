@@ -1,0 +1,503 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light">
+<title>形态决策台 · 观察版｜电竞赔率结构</title>
+<style>
+:root{--bg:#f5f5f7;--card:#fff;--ink:#1d1d1f;--muted:#6e6e73;--line:#e5e5ea;--blue:#0a6ed1;--teal:#0f766e;--amber:#a16207;--red:#b42318;--violet:#6d4aff;--shadow:0 1px 2px rgba(0,0,0,.04),0 10px 34px rgba(0,0,0,.055)}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.55 -apple-system,BlinkMacSystemFont,"SF Pro Text","PingFang SC","Noto Sans CJK SC","Microsoft YaHei",sans-serif;-webkit-font-smoothing:antialiased}
+a{color:var(--blue);text-decoration:none}button,select,input{font:inherit}
+.shell{max-width:1500px;margin:0 auto;padding:18px}
+.topbar{display:flex;align-items:center;justify-content:space-between;gap:18px;padding:8px 4px 18px}
+.brand{display:flex;align-items:center;gap:11px}.brandmark{display:grid;place-items:center;width:34px;height:34px;border-radius:11px;background:linear-gradient(145deg,#0a6ed1,#6d4aff);color:#fff;font-weight:800;font-size:18px;box-shadow:0 7px 18px rgba(10,110,209,.23)}
+.brand b{font-size:17px;letter-spacing:-.2px}.brand span{display:block;color:var(--muted);font-size:12px;margin-top:1px}
+.nav{display:flex;gap:6px;flex-wrap:wrap}.nav a,.nav span{padding:7px 11px;border-radius:999px;font-size:13px;background:rgba(255,255,255,.75);border:1px solid var(--line);color:#3a3a3c}.nav a:hover{background:#fff}.nav .active{background:var(--ink);color:#fff;border-color:var(--ink)}
+.layout{display:grid;grid-template-columns:300px minmax(0,1fr);gap:18px;align-items:start}
+.sidebar{position:sticky;top:14px;background:var(--card);border:1px solid rgba(0,0,0,.06);border-radius:20px;padding:16px;box-shadow:var(--shadow)}
+.sidebar h2{font-size:12px;color:var(--muted);font-weight:650;text-transform:uppercase;letter-spacing:.07em;margin:0 0 10px}
+.field{margin-bottom:13px}.field label{display:block;font-size:12px;color:var(--muted);margin:0 0 6px}.field select{width:100%;border:1px solid #d8d8de;background:#fafafa;border-radius:11px;padding:10px 11px;color:var(--ink);outline:none}.field select:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(10,110,209,.1)}
+.rail-stats{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:14px 0}.mini-stat{padding:11px;background:#f7f7f9;border-radius:12px}.mini-stat b{display:block;font-size:21px;letter-spacing:-.6px}.mini-stat span{font-size:11px;color:var(--muted)}
+.match-card{padding:15px;border-radius:15px;background:linear-gradient(155deg,#0f172a,#1e293b);color:#fff;margin-top:12px}.pillline{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px}.dark-pill{padding:4px 8px;border-radius:999px;background:rgba(255,255,255,.12);color:#dbeafe;font-size:11px}.match-card h3{font-size:17px;line-height:1.25;margin:0 0 5px}.match-card p{margin:0;color:#b6c2d4;font-size:12px}.result-fold{margin-top:12px}.result-fold summary{color:#cbd5e1;font-size:12px}.result-fold p{margin-top:8px;color:#e2e8f0}
+.main{min-width:0}.hero{position:relative;overflow:hidden;background:linear-gradient(135deg,#fff 0%,#fff 58%,#eef5ff 100%);border:1px solid rgba(0,0,0,.06);border-radius:22px;padding:24px 26px;box-shadow:var(--shadow);margin-bottom:16px}.hero:after{content:"";position:absolute;width:340px;height:340px;border-radius:50%;right:-160px;top:-200px;background:radial-gradient(circle,rgba(109,74,255,.14),rgba(109,74,255,0) 68%)}.hero-grid{position:relative;display:grid;grid-template-columns:minmax(0,1fr) 290px;gap:24px;align-items:end}.eyebrow{font-size:12px;color:var(--blue);font-weight:700;letter-spacing:.08em}.hero h1{font-size:clamp(28px,4vw,46px);line-height:1.05;letter-spacing:-1.8px;margin:9px 0 10px}.hero p{color:var(--muted);max-width:700px;margin:0}.hero-note{padding:15px;border:1px solid #dce8f8;border-radius:16px;background:rgba(255,255,255,.78);backdrop-filter:blur(12px);font-size:12px;color:#334155}.hero-note b{display:block;color:#0f172a;font-size:14px;margin-bottom:5px}
+.toolbar{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin:15px 2px}.toolbar-left{display:flex;align-items:center;gap:8px;flex-wrap:wrap}.pill{display:inline-flex;align-items:center;gap:6px;padding:5px 9px;border-radius:999px;background:#fff;border:1px solid var(--line);font-size:12px;color:#3a3a3c}.pill.live{background:#edfdf8;border-color:#b7efdd;color:#087f5b}.toolbar-note{font-size:12px;color:var(--muted)}
+.schedule-panel{background:var(--card);border:1px solid rgba(0,0,0,.06);border-radius:20px;padding:18px;box-shadow:var(--shadow);margin-bottom:14px}.schedule-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:12px}.schedule-head h2{font-size:18px;letter-spacing:-.4px;margin:0}.schedule-head p{margin:3px 0 0;color:var(--muted);font-size:12px}.schedule-head>.pill{white-space:nowrap;justify-content:center;min-width:54px}.schedule-list{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(270px,305px);gap:10px;overflow-x:auto;padding:1px 1px 9px;scroll-snap-type:x proximity}.schedule-card{scroll-snap-align:start;border:1px solid var(--line);border-radius:15px;padding:13px;background:#fbfbfc;min-height:185px;display:flex;flex-direction:column;gap:8px}.schedule-card.pm{cursor:pointer;background:linear-gradient(155deg,#fff,#f3f8ff)}.schedule-card.pm:hover{border-color:#b8d4f5;transform:translateY(-1px)}.schedule-card-top{display:flex;justify-content:space-between;gap:8px;align-items:center}.schedule-time{font-size:12px;color:var(--muted);white-space:nowrap}.schedule-game{font-size:10px;font-weight:700;letter-spacing:.04em;padding:3px 7px;border-radius:999px;background:#eef2ff;color:#4054b2}.schedule-card h3{font-size:15px;line-height:1.3;margin:0;letter-spacing:-.2px}.schedule-league{font-size:11.5px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.schedule-odds{display:grid;gap:5px;margin-top:auto}.schedule-odd{display:flex;justify-content:space-between;gap:8px;font-size:12px;color:#3a3a3c;background:#fff;border:1px solid #ececf0;border-radius:9px;padding:6px 8px}.schedule-odd b{font-variant-numeric:tabular-nums}.schedule-foot{display:flex;justify-content:space-between;gap:6px;align-items:center;font-size:10.5px;color:var(--muted)}.schedule-badge{padding:3px 7px;border-radius:999px;background:#f0f0f2;color:#5c5c61;white-space:nowrap}.schedule-badge.linked{background:#e8f6ee;color:#087f4b}.schedule-badge.pending{background:#fff3d6;color:#8a5b00}.schedule-note{color:var(--muted);font-size:11px;margin-top:8px}.schedule-empty{padding:20px;border:1px dashed #d8d8de;border-radius:13px;color:var(--muted);text-align:center;font-size:13px}
+.matchhead{background:var(--card);border:1px solid rgba(0,0,0,.06);border-radius:19px;padding:18px 20px;box-shadow:var(--shadow);margin-bottom:14px;display:flex;justify-content:space-between;gap:18px;align-items:center}.matchhead h2{font-size:22px;letter-spacing:-.6px;margin:0 0 4px}.matchhead p{margin:0;color:var(--muted);font-size:13px}.segmented{display:flex;gap:5px;padding:4px;background:#f2f2f4;border-radius:12px}.segmented button{border:0;background:transparent;color:#5c5c61;padding:8px 12px;border-radius:9px;cursor:pointer;font-weight:600;font-size:13px}.segmented button.on{background:#fff;color:#111;box-shadow:0 1px 3px rgba(0,0,0,.1)}
+.controlrow{display:flex;gap:12px;align-items:center;flex-wrap:wrap;background:var(--card);border:1px solid rgba(0,0,0,.06);border-radius:17px;padding:13px 16px;box-shadow:var(--shadow);margin-bottom:14px}.controlrow label{font-size:12px;color:var(--muted)}.controlrow input[type=range]{flex:1;min-width:210px;accent-color:var(--blue)}.side-toggle{display:flex;gap:5px;padding:3px;background:#f2f2f4;border-radius:10px}.side-toggle button{border:0;background:transparent;border-radius:8px;padding:7px 10px;color:#5c5c61;cursor:pointer}.side-toggle button.on{background:#fff;color:#111;box-shadow:0 1px 2px rgba(0,0,0,.08)}
+.kpis{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:14px}.kpi{background:var(--card);border:1px solid rgba(0,0,0,.06);border-radius:16px;padding:14px;box-shadow:var(--shadow);min-width:0}.kpi span{display:block;font-size:11px;color:var(--muted);white-space:nowrap}.kpi b{display:block;font-size:22px;line-height:1.2;letter-spacing:-.5px;margin-top:6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.kpi small{display:block;color:var(--muted);font-size:11px;margin-top:3px;line-height:1.35;min-height:2.7em;white-space:normal;overflow-wrap:anywhere}
+.panel{background:var(--card);border:1px solid rgba(0,0,0,.06);border-radius:20px;padding:18px;box-shadow:var(--shadow);margin-bottom:14px}.panel-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:13px}.panel-head h3{font-size:18px;letter-spacing:-.4px;margin:0}.panel-head p{margin:3px 0 0;color:var(--muted);font-size:12px}.legend{display:flex;flex-wrap:wrap;gap:8px 15px;color:var(--muted);font-size:11px}.legend i{display:inline-block;width:14px;height:2px;vertical-align:middle;margin-right:5px;border-radius:2px}.chart-wrap{overflow:hidden;border-radius:14px;background:#fbfbfc;border:1px solid #eeeef1}.chart-wrap svg{display:block;width:100%;height:auto;min-height:280px}.axis{font-size:10px;fill:#86868b}.axis-strong{font-size:11px;font-weight:650}.current-label{font-size:11px;font-weight:750}
+.candidate-switch{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}.candidate-tab{position:relative;border:1px solid var(--line);background:#fbfbfc;border-radius:15px;padding:13px 14px;text-align:left;cursor:pointer;transition:transform .18s ease,border-color .18s ease,box-shadow .18s ease;overflow:hidden}.candidate-tab:before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--c)}.candidate-tab:hover{transform:translateY(-1px);box-shadow:0 7px 22px rgba(0,0,0,.055)}.candidate-tab.on{border-color:var(--c);background:#fff;box-shadow:0 0 0 2px color-mix(in srgb,var(--c) 16%,transparent),0 7px 22px rgba(0,0,0,.045)}.candidate-tab .rank{display:inline-flex;align-items:center;gap:5px;font-size:10px;color:var(--muted);font-weight:650;letter-spacing:.03em}.candidate-tab .rank i{width:7px;height:7px;border-radius:50%;background:var(--c);display:inline-block}.candidate-tab b{display:block;font-size:15px;margin:4px 0 2px;line-height:1.3}.candidate-tab small{display:block;color:var(--muted);font-size:11px;line-height:1.45}.candidate-tab em{display:flex;justify-content:space-between;gap:8px;margin-top:7px;font-style:normal;font-size:11px;color:#3a3a3c}.candidate-tab em span:last-child{font-variant-numeric:tabular-nums;white-space:nowrap}
+.candidate-workbench{display:grid;grid-template-columns:minmax(0,1fr) 320px;gap:13px;margin-top:13px;align-items:stretch}.candidate-evidence{border:1px solid #ececf0;background:#fbfbfc;border-radius:18px;padding:14px;min-width:0}.candidate-evidence-head{display:flex;justify-content:space-between;gap:12px;align-items:flex-start;margin-bottom:9px}.candidate-evidence-head h4{font-size:18px;letter-spacing:-.35px;margin:0}.candidate-evidence-head p{margin:3px 0 0;color:var(--muted);font-size:11.5px}.candidate-evidence-head .confidence{font-style:normal;margin:0}.candidate-legend{display:flex;flex-wrap:wrap;gap:7px 14px;color:var(--muted);font-size:10.5px;margin:0 0 9px}.candidate-legend i{display:inline-block;width:16px;height:3px;vertical-align:middle;margin-right:5px;border-radius:2px}.candidate-canvas{overflow:hidden;border-radius:13px;background:#fff;border:1px solid #eeeeF2}.candidate-canvas svg{display:block;width:100%;height:auto;min-height:420px}.candidate-note{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-top:9px;color:var(--muted);font-size:10.5px}.candidate-note a{font-weight:650}
+.decision{padding:17px;border-radius:18px;background:#111318;color:white;display:flex;flex-direction:column;min-width:0}.decision-top{display:flex;justify-content:space-between;gap:12px;align-items:flex-start}.decision h3{margin:0;font-size:18px;line-height:1.25}.decision p{margin:4px 0 0;color:#aab2c0;font-size:11.5px}.decision-badge{padding:5px 8px;border-radius:999px;background:rgba(255,255,255,.09);font-size:10px;white-space:nowrap}.decision-primary{margin-top:14px;padding:13px;border-radius:13px;background:linear-gradient(135deg,rgba(15,118,110,.3),rgba(10,110,209,.18));border:1px solid rgba(125,211,252,.16)}.decision-primary span{display:block;color:#a8c6d6;font-size:10px}.decision-primary b{display:block;margin-top:3px;font-size:21px;letter-spacing:-.3px}.decision-primary small{display:block;color:#c4d2dc;font-size:10.5px;line-height:1.5;margin-top:5px}.decision-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:10px}.decision-item{padding:10px;background:rgba(255,255,255,.055);border:1px solid rgba(255,255,255,.07);border-radius:11px;min-width:0}.decision-item span{display:block;font-size:9.5px;color:#929daf}.decision-item b{display:block;font-size:14px;margin-top:3px;line-height:1.35}.decision-item small{display:block;color:#929daf;font-size:9.5px;margin-top:3px;line-height:1.4}.decision-stats{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}.decision-stats span{padding:4px 7px;border-radius:999px;background:rgba(255,255,255,.075);color:#bdc7d5;font-size:9.5px}.decision-foot{margin-top:auto;padding-top:12px;color:#8995a7;font-size:9.5px;line-height:1.5}.candidate-compare{margin-top:13px;overflow-x:auto;border:1px solid #ececf0;border-radius:14px}.candidate-table{width:100%;border-collapse:collapse;font-size:11.5px;white-space:nowrap}.candidate-table th{text-align:left;padding:9px 11px;color:var(--muted);font-weight:600;background:#f8f8fa;border-bottom:1px solid #ececf0}.candidate-table td{padding:10px 11px;border-bottom:1px solid #f0f0f2}.candidate-table tr:last-child td{border-bottom:0}.candidate-table tbody tr{cursor:pointer}.candidate-table tbody tr:hover,.candidate-table tbody tr.on{background:#f4f9f8}.candidate-table td:first-child{font-weight:650}.candidate-table .num{font-variant-numeric:tabular-nums}.candidate-footer{display:flex;justify-content:space-between;align-items:center;margin-top:9px;font-size:10px;color:var(--muted)}
+.explain-card{position:relative;background:#fbfbfc;border:1px solid var(--line);border-radius:15px;padding:14px;margin-bottom:10px;overflow:hidden}.explain-card:before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--c)}.explain-card h4{margin:0;font-size:15px}.explain-card .why{font-size:12px;color:var(--muted);margin:5px 0 10px}.explain-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}.explain-grid div{background:#fff;border:1px solid #ededf0;border-radius:10px;padding:9px}.explain-grid span{display:block;font-size:10px;color:var(--muted)}.explain-grid b{display:block;font-size:12px;line-height:1.5;margin-top:2px}
+.two-col{display:grid;grid-template-columns:1.15fr .85fr;gap:14px}.method-list{margin:0;padding-left:18px;color:#3d3d42;font-size:13px}.method-list li{margin:7px 0}.quality{display:grid;gap:9px}.quality-row{display:flex;justify-content:space-between;gap:12px;padding:10px 12px;background:#f7f7f9;border-radius:11px;font-size:12px}.quality-row span{color:var(--muted)}.notice{padding:13px 14px;border-radius:13px;background:#fffbeb;border:1px solid #fde68a;color:#713f12;font-size:12px}.source-note{margin-top:10px;font-size:11px;color:var(--muted);overflow-wrap:anywhere}.empty{padding:40px 20px;text-align:center;color:var(--muted)}.hidden{display:none!important}
+@media(max-width:1360px){.candidate-workbench{grid-template-columns:1fr}.candidate-canvas svg{min-height:480px}.decision{min-height:0}.decision-grid{grid-template-columns:repeat(4,1fr)}.decision-foot{margin-top:12px}}
+@media(max-width:1180px){.layout{grid-template-columns:250px minmax(0,1fr)}.kpis{grid-template-columns:repeat(3,1fr)}.decision-grid{grid-template-columns:1fr 1fr}.hero-grid{grid-template-columns:1fr}.hero-note{max-width:none}}
+@media(max-width:780px){.shell{padding:10px}.topbar{align-items:flex-start}.nav{display:none}.layout{display:block}.sidebar{position:static;margin-bottom:12px}.rail-stats{grid-template-columns:repeat(3,1fr)}.match-card{margin-top:4px}.hero{padding:20px}.hero h1{letter-spacing:-1px}.matchhead{align-items:flex-start;flex-direction:column}.kpis{grid-template-columns:1fr 1fr}.two-col{grid-template-columns:1fr}.controlrow{align-items:flex-start}.controlrow input[type=range]{min-width:180px}.candidate-switch{grid-template-columns:1fr}.decision-grid{grid-template-columns:1fr 1fr}.chart-wrap svg{min-height:230px}.candidate-canvas svg{min-height:300px}.candidate-evidence-head{flex-direction:column}.candidate-note{align-items:flex-start;flex-direction:column}.kpi small{min-height:0}.schedule-list{grid-auto-columns:82vw}.schedule-panel{padding:15px}}
+.midline-label{font-size:10px;font-weight:750;fill:#737378;paint-order:stroke;stroke:#fbfbfc;stroke-width:4px;stroke-linejoin:round}.series-price{font-size:10px;font-weight:750;paint-order:stroke;stroke:#fbfbfc;stroke-width:4px;stroke-linejoin:round}.level-label{font-size:10px;font-weight:700;paint-order:stroke;stroke:#fff;stroke-width:4px;stroke-linejoin:round}
+</style>
+</head>
+<body>
+<div class="shell">
+<header class="topbar">
+  <div class="brand"><div class="brandmark">形</div><div><b>形态决策台 · 观察版</b><span>分钟线 · 历史对照 · 未来赛程</span></div></div>
+  <nav class="nav"><span class="active">决策台</span><a href="pattern_structure_audit_2026-10-22.html">新版形态审计</a><a href="pattern_library.html">形态总库</a><a href="pattern_playbook.html">形态速查</a><a href="pattern_taxonomy.html">形态分类</a><a href="pattern_library.html#charts_lol">分类图表</a><a href="pattern_shapes_granularity.html">粒度对照</a><a href="pattern_frequency_index.html">频率排行</a></nav>
+</header>
+<div class="layout">
+  <aside class="sidebar">
+    <h2>选择盘面</h2>
+    <div class="field"><label for="sportFilter">游戏</label><select id="sportFilter"><option value="">全部游戏</option></select></div>
+    <div class="field"><label for="matchSelect">比赛</label><select id="matchSelect"></select></div>
+    <div class="field"><label for="marketSelect">市场层级</label><select id="marketSelect"></select></div>
+    <div class="rail-stats"><div class="mini-stat"><b id="statSamples">-</b><span>训练观察点</span></div><div class="mini-stat"><b id="statTrainingMatches">-</b><span>去重训练比赛</span></div><div class="mini-stat"><b id="statMatches">-</b><span>可回放盘面</span></div><div class="mini-stat"><b id="statLive">-</b><span>进行中</span></div></div>
+    <div class="match-card" id="matchCard"></div>
+  </aside>
+  <main class="main">
+    <section class="hero"><div class="hero-grid"><div><div class="eyebrow">PATTERN DECISION WORKSPACE · 观察版</div><h1>当前走势，对照历史同类路径。</h1><p>把当前可见的分钟线放进同游戏、同市场层级的样本中比较。小局预测与整场预测分开，赛前只给基础先验，局中只读取观察点之前的价格。</p></div><div class="hero-note"><b>这是观察版，不是胜率表</b>新版形态仍处于 P1 字典复核阶段。相似度、历史方向率和价格区间只用于看结构，不可当作已验证概率或自动交易信号。</div></div></section>
+    <div class="toolbar"><div class="toolbar-left" id="statusPills"></div><div class="toolbar-note" id="generatedAt"></div></div>
+    <section class="schedule-panel" id="schedulePanel"><div class="schedule-head"><div><h2>未来赛程</h2><p id="scheduleRangeNote">Stake 提供未来赛程与赛前赔率，Polymarket 提供分钟级形态主数据。</p></div><span class="pill" id="scheduleCount">-</span></div><div class="schedule-list" id="scheduleList"></div><div class="schedule-note" id="scheduleNote">Stake 十进制赔率与 Polymarket 0–1 价格不混画；去水概率只作赛前共识参考。</div></section>
+    <section class="matchhead"><div><h2 id="matchTitle">载入中</h2><p id="matchMeta"></p></div><div class="segmented" id="modeTabs"><button class="on">相似形态</button><button>结构解释</button><button>赛果对照</button></div></section>
+    <section class="controlrow"><label for="cutoffRange">观察点</label><input id="cutoffRange" type="range" min="5" max="100" value="60" step="1"><span class="pill" id="cutoffLabel">60%</span><div class="side-toggle" id="sideToggle"></div></section>
+    <section class="kpis" id="kpis"></section>
+    <section class="panel"><div class="panel-head"><div><h3>双方价格路径 × 候选延续</h3><p id="chartSub">粗蓝实线＝观察方；浅橙细线＝对手方；灰虚线＝50:50 中枢；彩色虚线＝候选延续。</p></div><div class="legend"><span><i style="background:#0a6ed1;height:3px"></i>观察方</span><span><i style="background:#ff9f0a;height:2px;opacity:.78"></i>对手方</span><span><i style="background:linear-gradient(90deg,#0f766e,#a16207,#b42318)"></i>候选延续</span><span><i style="background:#9a9aa0;height:1px"></i>50c 中枢</span></div></div><div class="chart-wrap" id="chart"></div></section>
+    <section class="panel" id="candidatePanel"><div class="panel-head"><div><h3>候选形态证据</h3><p>先选结构，再在同一张大图里核对双方真实路径、历史分钟延续、买卖观察位和失效线。</p></div><span class="pill" id="samplePill">-</span></div><div class="candidate-switch" id="candidates"></div><div class="candidate-workbench"><div class="candidate-evidence"><div class="candidate-evidence-head" id="candidateEvidenceHead"></div><div class="candidate-legend"><span><i style="background:#0a6ed1;height:3px"></i>观察方真实路径</span><span><i style="background:#ff9f0a;height:2px"></i>对手方真实路径</span><span><i style="background:#0f766e;height:3px"></i>历史中位延续</span><span><i style="background:rgba(15,118,110,.16);height:9px;border-radius:3px"></i>25%–75% 区间</span><span><i style="background:#94a3b8;height:2px"></i>相似历史分钟路径</span><span><i style="background:#9a9aa0;height:1px"></i>50c 中枢</span></div><div class="candidate-canvas" id="candidateChart"></div><div class="candidate-note" id="candidateFoot"></div></div><aside class="decision" id="decision"></aside></div><div class="candidate-compare" id="candidateCompare"></div></section>
+    <section class="panel hidden" id="explainPanel"><div class="panel-head"><div><h3>形态结构解释</h3><p>先看形态骨架、触发和失效条件；交易层级仍处在观察阶段。</p></div></div><div id="explanations"></div></section>
+    <section class="panel hidden" id="resultPanel"><div class="panel-head"><div><h3>赛果对照</h3><p>赛果不参与观察点之前的候选计算。</p></div></div><div id="resultContent"></div></section>
+    <section class="two-col">
+      <div class="panel"><div class="panel-head"><div><h3>这页怎么观察</h3><p>每一步都能回查，避免把事后图当成事前信号。</p></div></div><ol class="method-list"><li>只使用观察点之前已经出现的分钟价格。</li><li>在同一游戏、同一市场层级的近邻样本里比较现价、回撤、反弹、斜率与穿越次数。</li><li>同一场比赛的多个观察点先合并为一张比赛票，再做距离加权；相似权重不等于真实胜率。</li><li>历史观察率使用 Beta(2,2) 平滑；少于 8 场去重样本时只显示“样本不足”。</li><li>价格区间围绕现价和未来低点分位收紧，止盈位同时显示历史触达率；P1 阶段只用于结构对照。</li></ol><div class="notice">当前为 P1 观察版，不是确定性预测，也不是投资建议。页面不接下单，不主动平仓。实盘仍受固定金额制、单市场限额与每日限额约束。</div></div>
+      <div class="panel"><div class="panel-head"><div><h3>数据体检</h3><p>先看数据，再看结论。</p></div></div><div class="quality" id="quality"></div><div class="source-note" id="sourceNote"></div></div>
+    </section>
+  </main>
+</div>
+</div>
+<script id="pattern-data" type="application/json">__DATA__</script>
+<script>
+(function(){
+  const DATA=JSON.parse(document.getElementById('pattern-data').textContent);
+  const COLORS=['#0f766e','#a16207','#b42318'];
+  const $=id=>document.getElementById(id);
+  const esc=s=>String(s==null?'':s).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]));
+  const clamp=(x,a,b)=>Math.max(a,Math.min(b,x));
+  const pct=x=>Number(x||0).toFixed(0)+'c';
+  const range=(a,b)=>pct(a*100)+'–'+pct(b*100);
+  const rateLabel=r=>r==null?'样本不足':Math.round(r*100)+'%';
+  const betaRate=(wins,mass,alpha=2,beta=2)=>(wins+alpha)/(mass+alpha+beta);
+  const quantile=(arr,p)=>{if(!arr.length)return 0;const a=[...arr].sort((x,y)=>x-y),i=(a.length-1)*p,lo=Math.floor(i),hi=Math.ceil(i);return lo===hi?a[lo]:a[lo]*(hi-i)+a[hi]*(i-lo)};
+  const AUDIT_LABELS=new Set(['B4_直线阴跌','A3_折价修复','A2_中位U型反转','C2_五五开开局碾压','A1_V型极值反转','B1_尾盘崩塌']);
+  let currentMatch=null,currentMarket=null,currentSide=0,selectedCandidate=0,candidates=[];
+
+  function labelTitle(label){const meta=DATA.labels[label]||DATA.labels['未知']||{};return meta.title||'暂未归类'}
+  function marketLevelText(){return currentMarket&&currentMarket.level==='series'?'整场预测':(currentMarket?'小局预测':'市场层级')}
+  function auditHref(label){
+    const scope=currentMarket.sport+'-'+currentMarket.level;
+    const anchor=AUDIT_LABELS.has(label)?scope+'-'+String(label).replaceAll('/','-'):scope;
+    return 'pattern_structure_audit_2026-10-22.html#'+anchor;
+  }
+
+  function scheduleTime(ts){if(!ts)return'时间待定';return new Date(ts*1000).toLocaleString('zh-CN',{month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',hour12:false})}
+  function renderSchedule(){
+    const sport=$('sportFilter').value;
+    const rows=(DATA.upcoming_schedule||[]).filter(x=>!sport||x.sport===sport);
+    const linkedSlugs=new Set(DATA.matches.map(m=>m.slug));
+    $('scheduleCount').textContent=rows.length+' 场';
+    if(!rows.length){$('scheduleList').innerHTML='<div class="schedule-empty">未来 48 小时暂无已登记赛事，或 Stake 赛程源本轮不可用。</div>'}
+    else{
+      $('scheduleList').innerHTML=rows.map((row,index)=>{
+        const linked=Boolean(row.polymarket_slug&&linkedSlugs.has(row.polymarket_slug));
+        const winner=row.match_winner&&Array.isArray(row.match_winner.outcomes)?row.match_winner.outcomes:[];
+        const odds=winner.length?winner.map(o=>'<div class="schedule-odd"><span>'+esc(o.name)+'</span><b>'+Number(o.decimal_odds||0).toFixed(2)+' · '+Math.round(Number(o.fair_probability||0)*100)+'%</b></div>').join(''):'<div class="schedule-odd"><span>赛前独赢赔率</span><b>暂缺 / 盘口暂停</b></div>';
+        const badge=linked?'<span class="schedule-badge linked">PM 已接入</span>':'<span class="schedule-badge pending">PM 待开盘</span>';
+        return '<article class="schedule-card '+(linked?'pm':'')+'" data-schedule-index="'+index+'"><div class="schedule-card-top"><span class="schedule-game">'+esc(DATA.sports[row.sport]||row.sport)+'</span><span class="schedule-time">'+esc(scheduleTime(row.start_ts))+'</span></div><h3>'+esc((row.teams||[]).join(' vs '))+'</h3><div class="schedule-league">'+esc(row.league||row.tournament||'-')+' · '+esc(row.format||'赛制待确认')+'</div><div class="schedule-odds">'+odds+'</div><div class="schedule-foot"><span>'+esc(row.source_tier||'Stake 赛前参考')+'</span>'+badge+'</div></article>';
+      }).join('');
+      $('scheduleList').querySelectorAll('[data-schedule-index]').forEach(card=>card.onclick=()=>{
+        const row=rows[Number(card.dataset.scheduleIndex)];
+        if(!row||!row.polymarket_slug||!linkedSlugs.has(row.polymarket_slug))return;
+        $('sportFilter').value=row.sport;populateMatches();renderSchedule();chooseMatch(row.polymarket_slug);
+        $('matchTitle').scrollIntoView({behavior:'smooth',block:'start'});
+      });
+    }
+    const diag=(DATA.live_refresh||{}).stake_schedule||{};
+    const days=Number(diag.days||3);
+    $('scheduleRangeNote').textContent='覆盖未来 '+Math.round(days*24)+' 小时；Stake 提供赛程与赛前赔率，Polymarket 提供分钟级形态主数据。';
+    $('scheduleNote').textContent='Stake 十进制赔率与 Polymarket 0–1 价格不混画；去水概率只作赛前共识参考。本轮赛程 '+rows.length+' 场，有独赢赔率 '+(diag.with_winner_odds??'-')+' 场，错误 '+(diag.error_count??0)+' 个。';
+  }
+
+  function init(){
+    const sports=[...new Set(DATA.matches.map(m=>m.sport))];
+    $('sportFilter').innerHTML='<option value="">全部游戏</option>'+sports.map(s=>'<option value="'+s+'">'+esc(DATA.sports[s]||s)+'</option>').join('');
+    $('statSamples').textContent=DATA.stats.training_samples.toLocaleString();
+    $('statTrainingMatches').textContent=(DATA.stats.training_matches||0).toLocaleString();
+    $('statMatches').textContent=DATA.stats.matches;
+    $('statLive').textContent=DATA.stats.live_matches;
+    $('generatedAt').textContent='构建于 '+DATA.generated_at.replace('T',' ').slice(0,16)+' · 行情取数时刻见数据体检';
+    const liveNote=DATA.live_refresh?(' 云端扫描 '+DATA.live_refresh.fetched_events+' 个电竞事件，构建 '+DATA.live_refresh.built_matches+' 场实时/赛前盘面，未来赛程 '+(DATA.stats.upcoming_schedule||0)+' 场，行情错误 '+DATA.live_refresh.market_errors+' 个。'):'';
+    $('sourceNote').textContent='训练来源：'+(DATA.source_reports||[]).join('；')+'。页面只读取公开价格快照。'+liveNote;
+    $('sportFilter').onchange=()=>{populateMatches();renderSchedule()};
+    $('matchSelect').onchange=()=>chooseMatch($('matchSelect').value);
+    $('marketSelect').onchange=()=>chooseMarket($('marketSelect').value);
+    $('cutoffRange').oninput=renderAll;
+    $('modeTabs').querySelectorAll('button').forEach((b,i)=>b.onclick=()=>{
+      $('modeTabs').querySelectorAll('button').forEach(x=>x.classList.remove('on'));b.classList.add('on');
+      $('candidatePanel').classList.toggle('hidden',i!==0);
+      $('explainPanel').classList.toggle('hidden',i!==1);
+      $('resultPanel').classList.toggle('hidden',i!==2);
+    });
+    renderSchedule();
+    populateMatches();
+  }
+
+  function filteredMatches(){const sport=$('sportFilter').value;return DATA.matches.filter(m=>!sport||m.sport===sport)}
+  function populateMatches(){
+    const list=filteredMatches();
+    const groups={};list.forEach(m=>{const key=(DATA.sports[m.sport]||m.sport)+' · '+(m.date||'日期未知');(groups[key]||(groups[key]=[])).push(m)});
+    $('matchSelect').innerHTML=Object.entries(groups).map(([g,ms])=>'<optgroup label="'+esc(g)+'">'+ms.map(m=>'<option value="'+esc(m.slug)+'">'+esc((m.teams||[]).join(' vs ')||m.slug)+' · '+esc(m.status)+'</option>').join('')+'</optgroup>').join('');
+    if(!list.length){renderEmpty();return}
+    const preferred=list.find(m=>m.mode==='live')||list[0];
+    $('matchSelect').value=preferred.slug;
+    chooseMatch(preferred.slug);
+  }
+
+  function chooseMatch(slug){
+    currentMatch=DATA.matches.find(m=>m.slug===slug)||filteredMatches()[0];
+    if(!currentMatch){renderEmpty();return}
+    const keys=Object.keys(currentMatch.markets||{});
+    if(!keys.length){renderEmpty();return}
+    $('marketSelect').innerHTML=keys.map(k=>{const m=currentMatch.markets[k];return '<option value="'+esc(k)+'">'+esc(m.label)+'</option>'}).join('');
+    const liveKey=keys.find(k=>Math.max(...Object.values(currentMatch.markets[k].paths).flat().map(p=>p[0]))<99.5);
+    $('marketSelect').value=liveKey||keys[0];
+    chooseMarket($('marketSelect').value);
+  }
+
+  function chooseMarket(key){
+    currentMarket=currentMatch&&currentMatch.markets[key];
+    if(!currentMarket){renderEmpty();return}
+    currentSide=0;selectedCandidate=0;
+    $('matchTitle').textContent=(currentMatch.teams||[]).join(' vs ')||currentMatch.slug;
+    const sportLabel=DATA.sports[currentMatch.sport]||currentMatch.sport;
+    const leagueLabel=String(currentMatch.league||'').replace(/^(CS2|LoL|Dota2)\s*·\s*/i,'');
+    const metaBits=[sportLabel,leagueLabel,currentMatch.format,currentMarket.label,currentMarket.granularity].filter((v,i,a)=>v&&a.indexOf(v)===i);
+    $('matchMeta').textContent=metaBits.join(' · ');
+    $('matchCard').innerHTML='<div class="pillline"><span class="dark-pill">'+esc(currentMarket.status)+'</span><span class="dark-pill">'+esc(currentMarket.label)+'</span><span class="dark-pill">'+esc(currentMarket.granularity)+'</span></div><h3>'+esc((currentMatch.teams||[]).join(' vs '))+'</h3><p>'+esc(currentMatch.league||'-')+'</p><details class="result-fold"><summary>查看赛果对照</summary><p>'+esc(currentMatch.result||'赛果待回填')+'</p></details>';
+    $('sideToggle').innerHTML=(currentMarket.sides||[]).map((s,i)=>'<button data-side="'+i+'" class="'+(i===0?'on':'')+'">'+esc(s)+'</button>').join('');
+    $('sideToggle').querySelectorAll('button').forEach(b=>b.onclick=()=>{currentSide=Number(b.dataset.side);selectedCandidate=0;syncSide();renderAll()});
+    const live=currentMarket.status==='盘面进行中'||currentMarket.status==='待判定';
+    const prematch=currentMarket.status==='赛前待走势';
+    $('cutoffRange').disabled=live||prematch;
+    $('cutoffRange').value=live?Math.max(5,Math.round(currentMarket.observed_max)):(prematch?5:Math.min(88,Math.max(30,Math.round(currentMarket.observed_max||60))));
+    syncSide();renderAll();
+  }
+
+  function syncSide(){
+    const names=currentMarket.sides||[];
+    $('chartSub').innerHTML='粗蓝实线＝'+esc(names[currentSide]||'观察方')+'；浅橙细线＝'+esc(names[1-currentSide]||'对手方')+'；灰虚线＝50:50 中枢；彩色虚线＝按观察方价格坐标折算的候选延续。';
+    $('sideToggle').querySelectorAll('button').forEach((b,i)=>b.classList.toggle('on',i===currentSide));
+    const live=currentMarket.status==='盘面进行中'||currentMarket.status==='待判定';
+    const prematch=currentMarket.status==='赛前待走势';
+    const stale=live&&marketAgeMinutes()>15;
+    $('statusPills').innerHTML='<span class="pill '+(live&&!stale?'live':'')+'">'+esc(stale?'数据陈旧':(prematch?'赛前等待走势':(live?'行情快照':'历史回放')))+'</span><span class="pill">'+esc(marketLevelText())+'</span><span class="pill">'+esc(currentMarket.granularity)+'</span><span class="pill">观察侧 '+esc((currentMarket.sides||[])[currentSide]||'-')+'</span>';
+  }
+
+  function marketSides(){return Object.entries(currentMarket.paths||{}).sort((a,b)=>Number(a[0])-Number(b[0]))}
+  function sidePath(index){const entry=marketSides()[index]||marketSides()[0];return entry?entry[1]:[]}
+  function cutoff(){return Number($('cutoffRange').value)}
+  function marketAgeMinutes(){return currentMarket&&currentMarket.last_ts?Math.max(0,(Date.now()/1000-currentMarket.last_ts)/60):0}
+  function timeLabel(ts){if(!ts)return'-';return new Date(ts*1000).toLocaleString('zh-CN',{hour12:false})}
+
+  function poolGranularity(){
+    // A prematch market has only a snapshot. Match its historical prior against
+    // the 1-minute training layer while keeping the current snapshot labelled
+    // as insufficient rather than pretending it has minute history.
+    if(currentMarket&&currentMarket.status==='赛前待走势'&&currentMarket.granularity==='数据不足')return'1分钟级';
+    return currentMarket?currentMarket.granularity:'数据不足';
+  }
+
+  function poolGranularityLabel(){
+    const pool=poolGranularity();
+    return currentMarket&&currentMarket.granularity!==pool?'历史 '+pool+'先验':pool;
+  }
+
+  function features(path){
+    const points=path.filter(p=>p[0]<=cutoff()+0.001);
+    if(points.length<2)return null;
+    const prices=points.map(p=>p[1]/100),current=prices[prices.length-1],opening=prices[0],low=Math.min(...prices),high=Math.max(...prices);
+    let crossings=0;for(let i=1;i<prices.length;i++)if((prices[i-1]-.5)*(prices[i]-.5)<0)crossings++;
+    const recent=prices.slice(-Math.min(prices.length,7)),changes=prices.slice(1).map((x,i)=>x-prices[i]),mean=changes.reduce((a,b)=>a+b,0)/(changes.length||1);
+    const vol=Math.sqrt(changes.reduce((a,b)=>a+(b-mean)*(b-mean),0)/(changes.length||1));
+    return {p:current,o:opening,lo:low,hi:high,dd:high-current,rb:current-low,sl:(recent[recent.length-1]-recent[0])/Math.max(1,recent.length-1),cr:Math.min(12,crossings),vo:vol,pr:cutoff()/100};
+  }
+
+  function predictionFeatures(){
+    const observed=features(sidePath(currentSide));if(observed)return observed;
+    if(currentMarket.status!=='赛前待走势')return null;
+    const path=sidePath(currentSide);if(!path.length)return null;
+    const p=Number(path[0][1]||0)/100;
+    return {p,o:p,lo:p,hi:p,dd:0,rb:0,sl:0,cr:0,vo:0,pr:0.03};
+  }
+
+  function distance(a,b){
+    const x=a.f,y=b.f;if(!x||!y)return 99;
+    return Math.sqrt(2.5*(x.p-y.p)**2+1.2*(x.o-y.o)**2+1.6*(x.lo-y.lo)**2+1.4*(x.hi-y.hi)**2+1.8*(x.dd-y.dd)**2+1.5*(x.rb-y.rb)**2+0.7*(x.sl-y.sl)**2+0.3*((x.cr-y.cr)/12)**2+0.7*(x.vo-y.vo)**2+1.1*(x.pr-y.pr)**2);
+  }
+
+  const marketById=new Map();
+  (DATA.matches||[]).forEach(match=>Object.values(match.markets||{}).forEach(market=>{if(market.id)marketById.set(market.id,market)}));
+
+  function historyMarket(record){return marketById.get(record.t.mid)||null}
+
+  function historySeries(record,cut,invert){
+    const market=historyMarket(record);
+    if(market&&market.paths){
+      const wanted=String(record.t.team||'').trim().toLowerCase();
+      let side=(market.sides||[]).findIndex(name=>String(name||'').trim().toLowerCase()===wanted);
+      if(side<0)side=(market.sides||[]).findIndex(name=>String(name||'').trim().toLowerCase().includes(wanted)||wanted.includes(String(name||'').trim().toLowerCase()));
+      if(side>=0&&market.paths[String(side)]){
+        const histCut=Number(record.t.cut!=null?record.t.cut:record.t.f.pr*100),raw=market.paths[String(side)];
+        const future=raw.filter(p=>p[0]>=histCut-0.35);
+        if(future.length>=2){
+          const span=Math.max(1,100-histCut);
+          return future.map(p=>[cut+clamp((p[0]-histCut)/span,0,1)*(100-cut),invert?100-p[1]:p[1]]);
+        }
+      }
+    }
+    return (record.t.fut||[]).map(p=>[cut+(p[0]/100)*(100-cut),invert?100-p[1]:p[1]]);
+  }
+
+  function interpolateSeries(points,x){
+    if(!points||!points.length)return null;
+    if(x<=points[0][0])return points[0][1];
+    if(x>=points[points.length-1][0])return points[points.length-1][1];
+    let lo=0,hi=points.length-1;
+    while(hi-lo>1){const mid=Math.floor((lo+hi)/2);if(points[mid][0]<=x)lo=mid;else hi=mid}
+    const a=points[lo],b=points[hi],span=b[0]-a[0]||1;
+    return a[1]+((x-a[0])/span)*(b[1]-a[1]);
+  }
+
+  function futureDistribution(records,invert,steps=180){
+    const cut=cutoff(),futureEnd=100,span=futureEnd-cut,invertFor=typeof invert==='function'?invert:(()=>Boolean(invert));
+    const paths=records.map(r=>historySeries(r,cut,invertFor(r))).filter(path=>path.length>=2);
+    const median=[],low=[],high=[];
+    for(let i=0;i<=steps;i++){
+      const local=i/steps,x=cut+local*span,values=paths.map(path=>interpolateSeries(path,x)).filter(v=>v!=null&&Number.isFinite(v));
+      if(!values.length)continue;
+      median.push([x,quantile(values,.5)]);low.push([x,quantile(values,.25)]);high.push([x,quantile(values,.75)]);
+    }
+    return {median,low,high,pathCount:paths.length};
+  }
+
+  function representativePaths(records,invert,limit=5){
+    const invertFor=typeof invert==='function'?invert:(()=>Boolean(invert));
+    const byMatch={};records.forEach(r=>{const key=r.t.mid||r.t.slug+'|'+r.t.team;if(!byMatch[key]||Number(r.d||99)<Number(byMatch[key].d||99))byMatch[key]=r});
+    const rows=Object.values(byMatch).sort((a,b)=>Number(a.d||99)-Number(b.d||99));const picked=[],used=new Set();
+    const add=row=>{if(!row||used.has(row.t.mid||row.t.slug))return;const path=historySeries(row,cutoff(),invertFor(row));if(path.length<2)return;used.add(row.t.mid||row.t.slug);picked.push({path,slug:row.t.slug,team:row.t.team,win:Boolean(row.t.win),final:path[path.length-1][1]})};
+    rows.slice(0,limit).forEach(add);
+    if(rows.length&&picked.length<limit){const finals=rows.map(r=>{const p=historySeries(r,cutoff(),invertFor(r));return p.length?p[p.length-1][1]:null}).filter(v=>v!=null);if(finals.length){rows.find(r=>{const p=historySeries(r,cutoff(),invertFor(r));return p.length&&Math.abs(p[p.length-1][1]-Math.max(...finals))<.01})&&add(rows.find(r=>{const p=historySeries(r,cutoff(),invertFor(r));return p.length&&Math.abs(p[p.length-1][1]-Math.max(...finals))<.01}));rows.find(r=>{const p=historySeries(r,cutoff(),invertFor(r));return p.length&&Math.abs(p[p.length-1][1]-Math.min(...finals))<.01})&&add(rows.find(r=>{const p=historySeries(r,cutoff(),invertFor(r));return p.length&&Math.abs(p[p.length-1][1]-Math.min(...finals))<.01}))}}
+    return picked;
+  }
+
+  function uniqueMatchMass(records){
+    const byMatch={};records.forEach(r=>{const key=r.t.slug||('single:'+r.t.team);byMatch[key]=Math.max(byMatch[key]||0,r.w)});
+    return Object.values(byMatch).reduce((sum,w)=>sum+w,0)||1;
+  }
+
+  function predict(){
+    const currentFeatures=predictionFeatures();if(!currentFeatures)return[];
+    const prematch=currentMarket.status==='赛前待走势';
+    const pool=DATA.training.filter(t=>t.s===currentMarket.sport&&t.l===currentMarket.level&&t.gr===poolGranularity()&&t.slug!==currentMarket.slug&&(!prematch||t.f.pr<=0.12));
+    let local=prematch?pool.filter(t=>Math.abs(t.f.p-currentFeatures.p)<=0.18):pool.filter(t=>Math.abs(t.f.pr-currentFeatures.pr)<=0.16);if(local.length<30)local=pool;
+    local=local.map(t=>({t,d:distance(currentFeatures,t)})).sort((a,b)=>a.d-b.d).slice(0,60);
+    if(!local.length)return[];
+    const scale=local[Math.min(8,local.length-1)].d||0.04;
+    const weighted=local.map(x=>({t:x.t,w:Math.exp(-Math.max(0,x.d-scale*.25)/(scale*.75+0.04)),d:x.d}));
+    const groups={};weighted.forEach(x=>{const lab=x.t.lab||'未知';const g=groups[lab]||(groups[lab]={lab,w:0,records:[]});g.w+=x.w;g.records.push(x)});
+    let grouped=Object.values(groups).filter(g=>g.lab!=='未知'||Object.keys(groups).length<3).sort((a,b)=>uniqueMatchMass(b.records)-uniqueMatchMass(a.records));
+    if(grouped.length<3){const used=new Set(grouped.map(g=>g.lab));const fill=weighted.filter(x=>!used.has(x.t.lab)).map(x=>({lab:x.t.lab,w:x.w,records:[x]})).slice(0,3-grouped.length);grouped=grouped.concat(fill)}
+    const totalMatchMass=Object.values(groups).reduce((sum,g)=>sum+uniqueMatchMass(g.records),0)||1;
+    return grouped.slice(0,3).map(g=>{
+      // Multiple checkpoints from one match are observations, not independent matches.
+      const byMatch={};g.records.forEach(r=>{const key=r.t.slug||('single:'+r.t.team);const m=byMatch[key]||(byMatch[key]={w:0,winMass:0,mass:0,records:[]});m.w=Math.max(m.w,r.w);m.winMass+=r.w*(r.t.win||0);m.mass+=r.w;m.records.push(r)});
+      const matchRows=Object.values(byMatch),matchMass=matchRows.reduce((sum,m)=>sum+m.w,0)||1;
+      const winMass=matchRows.reduce((sum,m)=>sum+m.w*(m.winMass/(m.mass||1)),0);
+      const selectedWinRaw=winMass/matchMass,useSelected=selectedWinRaw>=.5;
+      const selectedWin=betaRate(winMass,matchMass);
+      const dirName=useSelected?(currentMarket.sides[currentSide]||'观察侧'):(currentMarket.sides[1-currentSide]||'对手侧');
+      const dirCurrent=useSelected?currentFeatures.p:1-currentFeatures.p;
+      const mins=g.records.map(r=>useSelected?r.t.fmin/100:1-r.t.fmax/100);
+      const maxs=g.records.map(r=>useSelected?r.t.fmax/100:1-r.t.fmin/100);
+      const refLow=quantile(mins,.30);let buyLow,buyHigh,entryStatus;
+      if(refLow>=dirCurrent){buyLow=clamp(dirCurrent-.035,.02,.96);buyHigh=clamp(dirCurrent+.015,buyLow+.02,.985);entryStatus='现价附近'}
+      else if(refLow<dirCurrent-.12){buyLow=clamp(dirCurrent-.10,.02,.96);buyHigh=clamp(Math.max(buyLow+.02,dirCurrent-.03),buyLow+.015,.985);entryStatus='等待回踩'}
+      else{buyLow=clamp(refLow-.015,.02,.96);buyHigh=clamp(Math.min(refLow+.065,dirCurrent+.015),buyLow+.02,.985);entryStatus='回踩区'}
+      const target1=clamp(Math.max(dirCurrent+.05,quantile(maxs,.55)),Math.min(.97,dirCurrent+.01),.97);
+      const target2=clamp(Math.max(target1+.04,quantile(maxs,.78)),Math.min(.99,target1+.015),.99);
+      const invalid=clamp(Math.min(buyLow-.035,quantile(mins,.1)-.02),.01,Math.max(.02,dirCurrent-.05));
+      const hitMass=(threshold)=>matchRows.reduce((sum,m)=>sum+m.w*((useSelected?Math.max(...m.records.map(r=>r.t.fmax/100)):Math.max(...m.records.map(r=>1-r.t.fmin/100)))>=threshold?1:0),0);
+      const target1Hit=betaRate(hitMass(target1),matchMass,1,1),target2Hit=betaRate(hitMass(target2),matchMass,1,1);
+      const count=matchRows.length,observationCount=g.records.length;
+      const share=matchMass/totalMatchMass;
+      const confidence=count>=16&&share>=.25?'中高':(count>=8?'中':'低');
+      const winRate=count>=8?(useSelected?selectedWin:1-selectedWin):null;
+      const biasLabel=count>=8?dirName:'样本不足';
+      // Training records preserve the sampled team's own price path. Because
+      // currentFeatures are also computed for the observation side, every
+      // matched record's future is already in the current-side analog
+      // coordinate. Do not invert by team name here: that would mix a bullish
+      // candidate down to 0c simply because the analog came from another team.
+      const distribution=futureDistribution(g.records,false),representatives=representativePaths(g.records,false,5);
+      return {label:g.lab,share,selectedWin,winRate,biasLabel,dirName,useSelected,count,observationCount,future:distribution.median,bandLow:distribution.low,bandHigh:distribution.high,drawnPaths:distribution.pathCount,representatives,buyLow,buyHigh,entryStatus,target1,target2,target1Hit,target2Hit,invalid,conf:confidence,current:dirCurrent,prematch};
+    });
+  }
+
+  function chart(){
+    const w=920,h=360,pad={l:52,r:24,t:22,b:38},pw=w-pad.l-pad.r,ph=h-pad.t-pad.b;
+    const X=x=>pad.l+(x/100)*pw,Y=y=>pad.t+(1-y/100)*ph;
+    const out=['<svg viewBox="0 0 '+w+' '+h+'" role="img" aria-label="观察方与对手方价格路径以及候选形态延续">'];
+    [0,20,40,60,80,100].forEach(v=>{out.push('<line x1="'+pad.l+'" y1="'+Y(v)+'" x2="'+(w-pad.r)+'" y2="'+Y(v)+'" stroke="#ececf0" stroke-width="1"/><text x="'+(pad.l-8)+'" y="'+(Y(v)+3)+'" text-anchor="end" class="axis">'+v+'c</text>')});
+    [0,20,40,60,80,100].forEach(v=>out.push('<text x="'+X(v)+'" y="'+(h-15)+'" text-anchor="middle" class="axis">'+v+'%</text>'));
+    out.push('<line x1="'+pad.l+'" y1="'+Y(50)+'" x2="'+(w-pad.r)+'" y2="'+Y(50)+'" stroke="#9a9aa0" stroke-width="1" stroke-dasharray="5 5"/>');
+    out.push('<text x="'+(w-pad.r-3)+'" y="'+(Y(50)-6)+'" text-anchor="end" class="midline-label">50:50 · 中枢</text>');
+    const cut=cutoff();
+    out.push('<line x1="'+X(cut)+'" y1="'+pad.t+'" x2="'+X(cut)+'" y2="'+(h-pad.b)+'" stroke="#d2d2d7" stroke-width="1" stroke-dasharray="2 5"/>');
+    out.push('<text x="'+(X(cut)+5)+'" y="'+(pad.t+10)+'" class="axis">观察点</text>');
+    // Projected paths stay behind the two observed price paths.
+    candidates.forEach((c,i)=>{if(!c.future.length)return;const points=c.future.map(p=>[X(p[0]),Y(p[1])]);const d=smoothSvgPath(points);out.push('<path d="'+d+'" fill="none" stroke="'+COLORS[i]+'" stroke-width="'+(i===selectedCandidate?2.2:1.15)+'" stroke-dasharray="7 5" stroke-linecap="round" stroke-linejoin="round" opacity="'+(i===selectedCandidate?.82:.38)+'"/>');const end=c.future[c.future.length-1];out.push('<text x="'+(X(end[0])-4)+'" y="'+(Y(end[1])-7)+'" text-anchor="end" class="axis-strong" fill="'+COLORS[i]+'">候选'+(i+1)+' '+Math.round(c.share*100)+'% · 终局 '+pct(end[1])+'</text>')});
+    // Draw both real series last so projections can never hide them.
+    const sides=marketSides(),observed=[];
+    sides.forEach((entry,i)=>{const path=entry[1].filter(p=>p[0]<=cut+0.001);if(!path.length)return;const color=i===currentSide?'#0a6ed1':'#ff9f0a';const d=smoothSvgPath(path.map(p=>[X(p[0]),Y(p[1])]));out.push('<path d="'+d+'" fill="none" stroke="'+color+'" stroke-width="'+(i===currentSide?3.2:1.7)+'" stroke-linejoin="round" stroke-linecap="round" opacity="'+(i===currentSide?1:.78)+'"/>');const last=path[path.length-1];observed[i]=last;out.push('<circle cx="'+X(last[0])+'" cy="'+Y(last[1])+'" r="'+(i===currentSide?4.2:3)+'" fill="'+color+'" stroke="#fbfbfc" stroke-width="1.5"/>')});
+    if(observed[currentSide]){const last=observed[currentSide];out.push('<rect x="'+(X(last[0])-27)+'" y="'+(Y(last[1])-28)+'" width="54" height="19" rx="9" fill="#0a6ed1"/><text x="'+X(last[0])+'" y="'+(Y(last[1])-15)+'" text-anchor="middle" class="current-label" fill="#fff">'+last[1].toFixed(0)+'c</text>')}
+    const opponent=observed[1-currentSide];if(opponent)out.push('<text x="'+(X(opponent[0])+7)+'" y="'+(Y(opponent[1])+13)+'" class="series-price" fill="#c26c00">'+opponent[1].toFixed(0)+'c</text>');
+    out.push('</svg>');return out.join('');
+  }
+
+  function svgPath(points){
+    return points.map((p,i)=>(i?'L':'M')+Number(p[0]).toFixed(1)+','+Number(p[1]).toFixed(1)).join(' ');
+  }
+
+  function smoothSvgPath(points){
+    // Catmull-Rom converted to cubic Bezier. Every original point remains on
+    // the rendered curve; only the segments between points are smoothed.
+    const cleaned=[];
+    points.forEach(point=>{
+      const x=Number(point[0]),y=Number(point[1]);
+      if(!Number.isFinite(x)||!Number.isFinite(y))return;
+      const last=cleaned[cleaned.length-1];
+      if(last&&Math.abs(x-last[0])<.0001){last[1]=y;return}
+      if(last&&x<last[0])return;
+      cleaned.push([x,y]);
+    });
+    if(cleaned.length<2)return'';
+    if(cleaned.length===2)return svgPath(cleaned);
+    let d='M'+cleaned[0][0].toFixed(1)+','+cleaned[0][1].toFixed(1);
+    for(let i=0;i<cleaned.length-1;i++){
+      const p0=cleaned[Math.max(0,i-1)],p1=cleaned[i],p2=cleaned[i+1],p3=cleaned[Math.min(cleaned.length-1,i+2)];
+      const c1x=p1[0]+(p2[0]-p0[0])/6,c1y=p1[1]+(p2[1]-p0[1])/6;
+      const c2x=p2[0]-(p3[0]-p1[0])/6,c2y=p2[1]-(p3[1]-p1[1])/6;
+      d+='C'+c1x.toFixed(1)+','+c1y.toFixed(1)+' '+c2x.toFixed(1)+','+c2y.toFixed(1)+' '+p2[0].toFixed(1)+','+p2[1].toFixed(1);
+    }
+    return d;
+  }
+
+  function candidateChart(candidate,index){
+    const w=920,h=500,pad={l:54,r:122,t:32,b:48},pw=w-pad.l-pad.r,ph=h-pad.t-pad.b,cut=cutoff();
+    const splitX=pad.l+pw*.40,observedWidth=splitX-pad.l,futureWidth=w-pad.r-splitX;
+    const X=x=>x<=cut?pad.l+(x/Math.max(1,cut))*observedWidth:splitX+((x-cut)/Math.max(1,100-cut))*futureWidth;
+    const Y=y=>pad.t+(1-y/100)*ph;
+    const out=['<svg viewBox="0 0 '+w+' '+h+'" role="img" aria-label="双方真实价格路径、同类历史分钟路径、中位区间与买卖观察位"><defs><clipPath id="candidate-clip"><rect x="'+pad.l+'" y="'+pad.t+'" width="'+pw+'" height="'+ph+'"/></clipPath></defs>'];
+    [0,20,40,60,80,100].forEach(v=>out.push('<line x1="'+pad.l+'" y1="'+Y(v)+'" x2="'+(w-pad.r)+'" y2="'+Y(v)+'" stroke="#eef0f3" stroke-width="1"/><text x="'+(pad.l-9)+'" y="'+(Y(v)+3)+'" text-anchor="end" class="axis">'+v+'c</text>'));
+    out.push('<text x="'+(pad.l+observedWidth/2)+'" y="'+(h-16)+'" text-anchor="middle" class="axis-strong" fill="#6e6e73">已发生走势 · 0→'+cut+'%</text>');
+    out.push('<text x="'+(splitX+futureWidth/2)+'" y="'+(h-16)+'" text-anchor="middle" class="axis-strong" fill="#0f766e">观察后 · 历史剩余时间展开 · 观察方价格坐标</text>');
+    [0,.25,.5,.75,1].forEach(v=>out.push('<text x="'+(splitX+futureWidth*v)+'" y="'+(h-3)+'" text-anchor="middle" class="axis">'+(v===0?'现在':v===1?'结束':'+'+Math.round(v*100)+'%')+'</text>'));
+    out.push('<line x1="'+splitX+'" y1="'+pad.t+'" x2="'+splitX+'" y2="'+(h-pad.b)+'" stroke="#c7c7cc" stroke-width="1" stroke-dasharray="2 5"/>');
+    out.push('<line x1="'+pad.l+'" y1="'+Y(50)+'" x2="'+(w-pad.r)+'" y2="'+Y(50)+'" stroke="#9a9aa0" stroke-width="1" stroke-dasharray="5 5"/>');
+    out.push('<text x="'+(w-pad.r-5)+'" y="'+(Y(50)-7)+'" text-anchor="end" class="midline-label">50:50 · 中枢</text>');
+    const zoneTop=Math.max(candidate.buyLow,candidate.buyHigh)*100,zoneBottom=Math.min(candidate.buyLow,candidate.buyHigh)*100;
+    out.push('<rect x="'+splitX+'" y="'+Y(zoneTop)+'" width="'+futureWidth+'" height="'+Math.max(2,Y(zoneBottom)-Y(zoneTop))+'" fill="#0f766e" opacity=".075"/>');
+    out.push('<line x1="'+splitX+'" y1="'+Y(zoneTop)+'" x2="'+(w-pad.r)+'" y2="'+Y(zoneTop)+'" stroke="#0f766e" stroke-width="1" stroke-dasharray="4 4" opacity=".62"/><line x1="'+splitX+'" y1="'+Y(zoneBottom)+'" x2="'+(w-pad.r)+'" y2="'+Y(zoneBottom)+'" stroke="#0f766e" stroke-width="1" stroke-dasharray="4 4" opacity=".62"/>');
+    out.push('<text x="'+(w-pad.r+8)+'" y="'+((Y(zoneTop)+Y(zoneBottom))/2+3)+'" class="level-label" fill="#0f766e">买入观察 '+range(candidate.buyLow,candidate.buyHigh)+'</text>');
+    const target1Y=Y(candidate.target1*100),target2Y=Y(candidate.target2*100),targetsClose=Math.abs(target1Y-target2Y)<17;
+    out.push('<line x1="'+splitX+'" y1="'+target1Y+'" x2="'+(w-pad.r)+'" y2="'+target1Y+'" stroke="#a16207" stroke-width="1.2" stroke-dasharray="7 4"/><line x1="'+splitX+'" y1="'+target2Y+'" x2="'+(w-pad.r)+'" y2="'+target2Y+'" stroke="#087f5b" stroke-width="1.2" stroke-dasharray="7 4"/>');
+    if(targetsClose)out.push('<text x="'+(w-pad.r+8)+'" y="'+((target1Y+target2Y)/2+3)+'" class="level-label" fill="#087f5b">止盈 1/2 · '+pct(candidate.target1*100)+' / '+pct(candidate.target2*100)+'</text>');
+    else{out.push('<text x="'+(w-pad.r+8)+'" y="'+(target1Y+3)+'" class="level-label" fill="#a16207">止盈 1 · '+pct(candidate.target1*100)+'</text>');out.push('<text x="'+(w-pad.r+8)+'" y="'+(target2Y+3)+'" class="level-label" fill="#087f5b">止盈 2 · '+pct(candidate.target2*100)+'</text>')}
+    out.push('<line x1="'+splitX+'" y1="'+Y(candidate.invalid*100)+'" x2="'+(w-pad.r)+'" y2="'+Y(candidate.invalid*100)+'" stroke="#b42318" stroke-width="1.2" stroke-dasharray="3 4" opacity=".82"/><text x="'+(w-pad.r+8)+'" y="'+(Y(candidate.invalid*100)+3)+'" class="level-label" fill="#b42318">失效 · &lt; '+pct(candidate.invalid*100)+'</text>');
+    const band=candidate.bandLow&&candidate.bandHigh?svgPath(candidate.bandLow.concat([...candidate.bandHigh].reverse())):'';
+    if(band)out.push('<path d="'+band+' Z" fill="'+(COLORS[index]||'#0f766e')+'" opacity=".11" clip-path="url(#candidate-clip)"/>');
+    candidate.representatives.forEach((row,ri)=>{
+      const path=row.path.filter(p=>p[0]>=cut-.01);if(path.length<2)return;
+      const opacity=.18+ri*.035;
+      out.push('<path d="'+smoothSvgPath(path.map(p=>[X(p[0]),Y(p[1])]))+'" fill="none" stroke="#64748b" stroke-width="1.15" stroke-linecap="round" stroke-linejoin="round" opacity="'+opacity+'" clip-path="url(#candidate-clip)"/>');
+      const last=path[path.length-1];out.push('<circle cx="'+X(last[0])+'" cy="'+Y(last[1])+'" r="2.4" fill="#64748b" opacity="'+Math.min(.52,opacity+.14)+'" clip-path="url(#candidate-clip)"/>');
+    });
+    if(candidate.future.length>1){
+      out.push('<path d="'+smoothSvgPath(candidate.future.map(p=>[X(p[0]),Y(p[1])]))+'" fill="none" stroke="'+(COLORS[index]||'#0f766e')+'" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" clip-path="url(#candidate-clip)"/>');
+      const inverse=candidate.future.map(p=>[p[0],100-p[1]]);
+      out.push('<path d="'+smoothSvgPath(inverse.map(p=>[X(p[0]),Y(p[1])]))+'" fill="none" stroke="#ff9f0a" stroke-width="1.5" stroke-dasharray="5 4" opacity=".78" clip-path="url(#candidate-clip)"/>');
+      const end=candidate.future[candidate.future.length-1],opposite=100-end[1];out.push('<circle cx="'+X(end[0])+'" cy="'+Y(end[1])+'" r="4" fill="'+(COLORS[index]||'#0f766e')+'" stroke="#fff" stroke-width="2"/><text x="'+(X(end[0])-6)+'" y="'+(Y(end[1])-9)+'" text-anchor="end" class="axis-strong" fill="'+(COLORS[index]||'#0f766e')+'">观察方中位 '+pct(end[1])+'</text>');out.push('<text x="'+(X(end[0])-6)+'" y="'+(Y(opposite)+15)+'" text-anchor="end" class="axis-strong" fill="#c26c00">对手镜像 '+pct(opposite)+'</text>');
+    }
+    const observed=[];
+    marketSides().forEach((entry,i)=>{const path=entry[1].filter(p=>p[0]<=cut+.001);if(!path.length)return;const color=i===currentSide?'#0a6ed1':'#ff9f0a';out.push('<path d="'+smoothSvgPath(path.map(p=>[X(p[0]),Y(p[1])]))+'" fill="none" stroke="'+color+'" stroke-width="'+(i===currentSide?3.2:1.8)+'" stroke-linecap="round" stroke-linejoin="round" opacity="'+(i===currentSide?1:.82)+'" clip-path="url(#candidate-clip)"/>');const last=path[path.length-1];observed[i]=last;out.push('<circle cx="'+X(last[0])+'" cy="'+Y(last[1])+'" r="'+(i===currentSide?4.2:3)+'" fill="'+color+'" stroke="#fff" stroke-width="1.5"/>')});
+    out.push('<rect x="'+(splitX-30)+'" y="'+(pad.t+5)+'" width="60" height="19" rx="9" fill="#fff" stroke="#d9d9de"/><text x="'+splitX+'" y="'+(pad.t+18)+'" text-anchor="middle" class="axis-strong" fill="#5c5c61">观察点</text>');
+    if(observed[currentSide]){const last=observed[currentSide];out.push('<rect x="'+(X(last[0])-29)+'" y="'+(Y(last[1])-29)+'" width="58" height="20" rx="10" fill="#0a6ed1"/><text x="'+X(last[0])+'" y="'+(Y(last[1])-15)+'" text-anchor="middle" class="current-label" fill="#fff">'+last[1].toFixed(0)+'c</text>')}
+    out.push('</svg>');return out.join('');
+  }
+
+  function renderKpis(){
+    const f=predictionFeatures(),top=candidates[0];
+    const values=[['现价',f?pct(f.p*100):'-',(currentMarket.sides||[])[currentSide]||''],['观察侧低点',f?pct(f.lo*100):'-','截至观察点'],['当前回撤',f?pct(f.dd*100):'-','距片段高点'],['首候选权重',top?Math.round(top.share*100)+'%':'-',top?labelTitle(top.label):'样本不足'],['方向倾向',top?top.biasLabel:'等待',top?'观察率 '+rateLabel(top.winRate)+' · '+top.count+' 场':'至少 6 个分钟点']];
+    $('kpis').innerHTML=values.map(v=>'<div class="kpi"><span>'+esc(v[0])+'</span><b>'+esc(v[1])+'</b><small>'+esc(v[2])+'</small></div>').join('');
+    const same=DATA.training.filter(t=>t.s===currentMarket.sport&&t.l===currentMarket.level&&t.gr===poolGranularity()),m=new Set(same.map(t=>t.slug)).size;$('samplePill').textContent=(currentMarket.status==='赛前待走势'?'赛前先验 · 前 10% 片段 · ':'同层 ')+m+' 场 / '+same.length+' 个观察点 · '+poolGranularityLabel();
+  }
+
+  function entryAction(c){
+    if(c.entryStatus==='等待回踩')return'现在不追；等价格回到观察区，触发后才继续看结构。';
+    if(c.entryStatus==='现价附近')return'现价已在观察区；不因短时急拉追加，优先等延续确认。';
+    return'当前处在回踩观察区；只在承接成立后观察，失守下沿就重算。';
+  }
+
+  function renderCandidates(){
+    $('candidates').innerHTML=candidates.map((c,i)=>{const meta=DATA.labels[c.label]||DATA.labels['未知'];return '<button class="candidate-tab '+(i===selectedCandidate?'on':'')+'" data-cand="'+i+'" style="--c:'+COLORS[i]+'" aria-pressed="'+(i===selectedCandidate?'true':'false')+'"><span class="rank"><i></i>候选 '+(i+1)+' · '+esc(c.conf)+'置信</span><b>'+esc(meta.title||labelTitle(c.label))+'</b><small>'+esc(meta.family||'观察结构')+' · '+c.count+' 场 / '+c.observationCount+' 点</small><em><span>'+esc(c.biasLabel)+'</span><span>相似 '+Math.round(c.share*100)+'%</span></em></button>'}).join('')||'<div class="empty">当前没有足够的近邻样本。</div>';
+    $('candidateCompare').innerHTML=candidates.length?('<table class="candidate-table"><thead><tr><th>候选结构</th><th>偏向</th><th>买入观察区</th><th>止盈 1</th><th>止盈 2</th><th>失效</th><th>去重样本</th><th>相似权重</th></tr></thead><tbody>'+candidates.map((c,i)=>{const meta=DATA.labels[c.label]||DATA.labels['未知'];return '<tr data-cand="'+i+'" class="'+(i===selectedCandidate?'on':'')+'"><td>'+esc(meta.title||labelTitle(c.label))+'</td><td>'+esc(c.biasLabel)+'</td><td class="num">'+range(c.buyLow,c.buyHigh)+'</td><td class="num">'+pct(c.target1*100)+'</td><td class="num">'+pct(c.target2*100)+'</td><td class="num">&lt; '+pct(c.invalid*100)+'</td><td class="num">'+c.count+' 场</td><td class="num">'+Math.round(c.share*100)+'%</td></tr>'}).join('')+'</tbody></table>'):'';
+    document.querySelectorAll('[data-cand]').forEach(el=>el.onclick=()=>{selectedCandidate=Number(el.dataset.cand);renderCandidates();renderDecision();$('candidateChart').innerHTML=candidateChart(candidates[selectedCandidate],selectedCandidate);$('chart').innerHTML=chart()});
+  }
+
+  function renderDecision(){
+    const c=candidates[selectedCandidate];if(!c){$('decision').innerHTML='<div class="decision-top"><div><h3>样本不足</h3><p>等待更多分钟点后再生成条件区间。</p></div></div>';$('candidateEvidenceHead').innerHTML='<div><h4>暂无可比历史路径</h4><p>当前层级样本不足，不使用摘要点硬拼形态。</p></div>';$('candidateFoot').innerHTML='';$('candidateChart').innerHTML='<div class="empty">当前没有足够的近邻样本。</div>';return}
+    const meta=DATA.labels[c.label]||DATA.labels['未知'];
+    $('candidateEvidenceHead').innerHTML='<div><h4>'+esc(meta.title||labelTitle(c.label))+'</h4><p>'+esc(meta.family||'观察结构')+' · '+esc(c.biasLabel)+' · '+esc(c.entryStatus)+' · 实绘 '+c.representatives.length+' 条历史分钟路径 / 分布基于 '+c.drawnPaths+' 条路径</p></div><span class="confidence">'+esc(c.conf)+'观察置信</span>';
+    $('candidateFoot').innerHTML='<span>'+esc('左侧为已发生走势，右侧把观察后的剩余时间展开；'+marketLevelText()+' · '+poolGranularityLabel()+' · 全部原始点位参与平滑连接，不删除拐点，也不使用固定摘要点；中位线与区间由同层真实分钟路径计算。历史终点按结算口径显示：胜方约 100c、负方约 0c，不是双方同时到 100c。')+'</span><a href="'+esc(auditHref(c.label))+'">对比同类历史案例 →</a>';
+    $('decision').innerHTML='<div class="decision-top"><div><h3>现在怎么用这条结构</h3><p>'+esc(marketLevelText()+' · '+(c.useSelected?'顺观察侧':'反向保护')+' · '+c.count+' 场 / '+c.observationCount+' 点')+'</p></div><span class="decision-badge">'+esc(c.conf)+'置信</span></div><div class="decision-primary"><span>候选方向</span><b>'+esc(c.biasLabel)+'</b><small>'+esc(entryAction(c))+'</small></div><div class="decision-grid"><div class="decision-item"><span>'+esc(c.entryStatus)+'</span><b>'+range(c.buyLow,c.buyHigh)+'</b><small>图上绿色带 · 未进区不追</small></div><div class="decision-item"><span>历史方向率</span><b>'+rateLabel(c.winRate)+'</b><small>按比赛去重 · 非已验证胜率</small></div><div class="decision-item"><span>第一止盈观察</span><b>'+pct(c.target1*100)+'</b><small>历史触达 '+rateLabel(c.target1Hit)+'</small></div><div class="decision-item"><span>第二止盈观察</span><b>'+pct(c.target2*100)+'</b><small>历史触达 '+rateLabel(c.target2Hit)+'</small></div></div><div class="decision-item" style="margin-top:7px"><span>失效边界</span><b>&lt; '+pct(c.invalid*100)+'</b><small>失守后结构作废，停止加仓并按新盘面重算。</small></div><div class="decision-stats"><span>相似权重 '+Math.round(c.share*100)+'%</span><span>去重 '+c.count+' 场</span><span>观察点 '+c.observationCount+'</span><span>路径 '+c.drawnPaths+'</span></div><div class="decision-foot">这是 P1 观察建议：先识别结构和触发，不把方向率当胜率，也不自动下单。</div>';
+  }
+
+  function renderExplain(){
+    $('explanations').innerHTML=candidates.map((c,i)=>{const meta=DATA.labels[c.label]||DATA.labels['未知'];return '<div class="explain-card" style="--c:'+COLORS[i]+'"><h4>'+esc(meta.title||labelTitle(c.label))+' · '+esc(marketLevelText())+'</h4><p class="why">'+esc(meta.summary||'')+'</p><div class="explain-grid"><div><span>识别条件</span><b>'+esc(meta.trigger||'-')+'</b></div><div><span>失效条件</span><b>'+esc(meta.invalid||'-')+'</b></div></div><div class="candidate-footer"><span>结构解释</span><a href="'+esc(auditHref(c.label))+'">查看同类历史案例 →</a></div></div>'}).join('')||'<div class="empty">暂无候选解释。</div>';
+  }
+
+  function renderResult(){
+    const ends=currentMarket.end_prices||{},keys=Object.keys(currentMarket.paths||{});
+    $('resultContent').innerHTML='<div class="quality"><div class="quality-row"><span>记录赛果</span><b>'+esc(currentMatch.result||'待回填')+'</b></div>'+keys.map((key,i)=>'<div class="quality-row"><span>'+esc((currentMarket.sides||[])[i]||key)+' 末价</span><b>'+esc(pct((ends[key]||0)*100))+'</b></div>').join('')+'</div><div class="notice" style="margin-top:12px">回放时图中实线只画到观察点；赛果只用于复盘对照，没有进入该观察点之前的候选计算。</div>';
+  }
+
+  function renderQuality(){
+    const same=DATA.training.filter(t=>t.s===currentMarket.sport&&t.l===currentMarket.level&&t.gr===poolGranularity()),age=marketAgeMinutes(),stale=(currentMarket.status==='盘面进行中'||currentMarket.status==='待判定')&&age>15,prematch=currentMarket.status==='赛前待走势';
+    const rows=[['预测层级',marketLevelText()],['当前行情粒度',currentMarket.granularity],['历史匹配粒度',poolGranularityLabel()],['当前可见点数',sidePath(currentSide).filter(p=>p[0]<=cutoff()+0.001).length+' 个'],['最后行情时间',timeLabel(currentMarket.last_ts)],['行情年龄',prematch?'赛前 · 先验只匹配历史前 10% 片段':(stale?Math.round(age)+' 分钟 · 数据陈旧':'≤15 分钟 / 历史') ],['窗口来源',currentMarket.window_source],['同层训练覆盖',new Set(same.map(t=>t.slug)).size+' 场 / '+same.length+' 个观察点'],['当前状态',stale?'数据陈旧':currentMarket.status],['曲线口径','全部原始点参与 Catmull-Rom 平滑；不删点、不改点值'],['口径','P1 观察版；相似度 ≠ 胜率；方向率按比赛去重']];
+    $('quality').innerHTML=rows.map(r=>'<div class="quality-row"><span>'+esc(r[0])+'</span><b>'+esc(r[1])+'</b></div>').join('');
+  }
+
+  function renderAll(){
+    $('cutoffLabel').textContent=cutoff()+'%';candidates=predict();if(selectedCandidate>=candidates.length)selectedCandidate=0;
+    renderKpis();$('chart').innerHTML=chart();renderCandidates();renderDecision();if(candidates[selectedCandidate])$('candidateChart').innerHTML=candidateChart(candidates[selectedCandidate],selectedCandidate);renderExplain();renderResult();renderQuality();
+  }
+
+  function renderEmpty(){
+    $('matchTitle').textContent='暂无可用盘面';$('matchMeta').textContent='等待价格快照或选择其他游戏';$('candidates').innerHTML='<div class="empty">当前筛选没有可用比赛。</div>';
+  }
+
+  try { init(); } catch (error) {
+    document.body.dataset.runtimeError = String(error && (error.stack || error.message) || error);
+    $('candidates').innerHTML='<div class="empty">页面运行错误：'+esc(error && (error.message || error))+'</div>';
+    throw error;
+  }
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LoL 形态假设库 · 观察中</title>
+<style>
+:root{--blue:#0071e3;--bg:#f5f5f7;--card:#fff;--tx:#1d1d1f;--mu:#6e6e73;--bd:#e5e5ea;--green:#1d8f4e;--amber:#b25000;--red:#c7362c}
+*{box-sizing:border-box}html,body{margin:0;background:var(--bg);color:var(--tx);font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Helvetica Neue",Arial,sans-serif;line-height:1.6}
+.top{background:#1d1d1f;color:#fff;padding:10px 24px;font-size:12px;display:flex;justify-content:space-between}
+.wrap{max-width:1040px;margin:0 auto;padding:28px 20px 60px}
+.hero{padding:8px 0 18px}.eyebrow{font-size:11px;letter-spacing:.12em;color:var(--blue);font-weight:700;text-transform:uppercase}
+h1{font-size:30px;line-height:1.2;margin:6px 0 10px;letter-spacing:-.02em}
+.lede{color:var(--mu);font-size:14px;max-width:820px;margin:0}
+.warn{background:#fff8e6;border:1px solid #f0d9a8;color:#6b4b00;padding:10px 14px;border-radius:10px;font-size:12.5px;margin:16px 0 22px}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:14px;padding:18px 20px;margin:14px 0}
+.card h2{font-size:18px;margin:0 0 4px}.sub{color:var(--mu);font-size:12px;margin:0 0 12px}
+.quote{border-left:3px solid var(--blue);background:#f7fbff;padding:8px 12px;color:#334;font-size:13px;margin:10px 0}
+.badge{display:inline-block;font-size:11px;padding:2px 8px;border-radius:8px;margin-left:6px;vertical-align:middle}
+.badge.red{background:#fde8e6;color:var(--red)}.badge.amber{background:#fff3e0;color:var(--amber)}.badge.green{background:#e8f6ee;color:var(--green)}
+.metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:12px 0}
+.metric{background:#fafafc;border:1px solid #eee;border-radius:10px;padding:8px 10px}
+.metric .k{font-size:10.5px;color:var(--mu)}.metric .v{font-size:18px;font-weight:650;margin-top:2px}
+.verdict{font-size:13px;margin:10px 0 0}.verdict b{font-weight:650}
+.refine{background:#f7f7fa;border:1px dashed #d8d8e0;border-radius:10px;padding:10px 12px;margin-top:10px;font-size:12.5px}
+table{width:100%;border-collapse:collapse;font-size:11.5px;margin-top:10px}
+th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #eee;vertical-align:top}
+th{color:var(--mu);font-weight:600;background:#fafafc}
+.checklist{font-size:13px}.checklist li{margin:6px 0}
+.foot{color:var(--mu);font-size:11.5px;margin-top:24px;border-top:1px solid var(--bd);padding-top:12px}
+@media(max-width:640px){.metrics{grid-template-columns:repeat(2,1fr)}h1{font-size:24px}
+table{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch}th,td{white-space:nowrap}}
+</style></head><body>
+<div class="top"><b>Polymarket 电竞情报库 · 形态假设</b><span>生成 2026-10-19 18:42 CST · 只读分析</span></div>
+<div class="wrap">
+<div class="hero"><div class="eyebrow">Pattern Hypotheses · LoL</div>
+<h1>四条盘感，先当成假设，不当成结论</h1>
+<p class="lede">来源：用户 2026-10-18 复盘观察。样本：LoL 一级赛事 231 场（真实 60s 赔率，仅比赛内窗口）。以下是第一版定义与粗基线，目的是把“感觉”变成可被证伪的规则。</p></div>
+<div class="warn"><b>纪律：</b>本页全部为 L0 观察层，不构成交易建议，不自动下单。EV 用“赢则 1/入场价−1、输则 −1”计算，未计手续费、点差、滑点；价格是 CLOB 中间价，不是可成交价。样本小，禁止据此放大仓位。</div>
+
+<div class="card">
+<h2>先看总览</h2>
+<div class="metrics">
+<div class="metric"><div class="k">H1 样本</div><div class="v">13</div></div>
+<div class="metric"><div class="k">H2 样本</div><div class="v">14</div></div>
+<div class="metric"><div class="k">H3 样本（≤0.20）</div><div class="v">43</div></div>
+<div class="metric"><div class="k">H4 极值触点</div><div class="v">480</div></div>
+</div>
+<p class="verdict">一句话：<b>H1 目前不支持直接抄底整场；H2 支持“系列赛胜率高”，但不支持“必 3:0”；H3 只在 1-1 且极深水时有正期望迹象，0-2 落后时是陷阱；H4 盲买 0.01–0.05 负期望，但“先砸到 0.05 以下、再站回 0.20–0.30”的确认反转样本内有正期望，只做卫星仓、待样本外验证。</b></p>
+</div>
+
+<div class="card">
+<h2>H1 · 强打弱 BO3：输掉 G2 后买强队 <span class='badge red'>初步不支持</span></h2>
+<p class="sub">强队 = 赛前整场赔率 ≥60c；G1 强队赢、G2 强队输；在 G2 结束后 30 秒买强队整场赢。</p>
+<div class="quote">“强打弱 BO3：强队第一局赢了、第二局输了，在第二局输之后买入，类似 U 型反转。”</div>
+<div class="metrics"><div class='metric'><div class='k'>样本</div><div class='v'>13</div></div><div class='metric'><div class='k'>命中</div><div class='v'>62%</div></div><div class='metric'><div class='k'>均价</div><div class='v'>0.685</div></div><div class='metric'><div class='k'>EV</div><div class='v'>-0.12</div></div></div>
+<p class="verdict"><b>结果：</b>命中 8/13（62%），均价 0.685，EV -0.12——方向不算错，但当前定价没有给出正期望；“输 G2 后无脑买强队”暂时不成立。</p>
+<div class="refine"><b>最有价值的反例：</b>按“G2 后整场价是否守住 50c”分层——守住 50c 的 7 场赢了 7 场；跌破 50c 的 6 场只赢 1 场。也就是说，<b>深水 U 型更像“市场在告诉你强队要输”，不是免费的反转期权</b>。这条分层只有 13 场，必须在样本外复核。</div>
+<div class="refine"><b>稳健性：</b>剔除 1 场入场价 0.995（已无交易空间）后，12 场 7 胜、均价 0.659、EV −0.13，结论不变。</div>
+<div class="refine"><b>赛前强度分档：</b>≥0.60: n=13 / 命中 62% / EV -0.12 · ≥0.65: n=12 / 命中 67% / EV -0.04 · ≥0.70: n=10 / 命中 60% / EV -0.17 · ≥0.75: n=4 / 命中 100% / EV +0.28。≥0.75 只有 4 场，不能当结论。</div>
+<table><thead><tr><th>slug</th><th>fav</th><th>entry</th><th>low_after_g2</th><th>won</th><th>series</th></tr></thead><tbody><tr><td>lol-mkoi-gam-2026-07-15</td><td>Movistar KOI</td><td>0.68</td><td>0.0005</td><td>输</td><td>GAM Esports 2:1 Movistar KOI（打满 BO3，G3 无独立市场/无成交，按整场结算归属补足）</td></tr><tr><td>lol-ts-kc-2026-07-15</td><td>Karmine Corp</td><td>0.615</td><td>0.555</td><td>赢</td><td>Karmine Corp 2:1 Team Secret（打满 BO3，G3 无独立市场/无成交，按整场结算归属补足）</td></tr><tr><td>lol-blg-tt-2026-07-23</td><td>Bilibili Gaming</td><td>0.804</td><td>0.7175</td><td>赢</td><td>Bilibili Gaming 2:1 ThunderTalk Gaming（打满 BO3，G3 无独立市场/无成交，按整场结算归属补足）</td></tr><tr><td>lol-tes-tt-2026-07-25</td><td>Top Esports</td><td>0.665</td><td>0.515</td><td>赢</td><td>Top Esports 2:1 ThunderTalk Gaming（打满 BO3，G3 无独立市场/无成交，按整场结算归属补足）</td></tr><tr><td>lol-mkoi-vit-2026-07-26</td><td>Movistar KOI</td><td>0.6685</td><td>0.0005</td><td>输</td><td>Team Vitality 2:1 Movistar KOI（打满 BO3，G3 无独立市场/无成交，按整场结算归属补足）</td></tr><tr><td>lol-blg-lgd-2026-07-29</td><td>Bilibili Gaming</td><td>0.72</td><td>0.675</td><td>赢</td><td>Bilibili Gaming 2:1 LGD Gaming（打满 BO3，G3 无独立市场/无成交，按整场结算归属补足）</td></tr><tr><td>lol-cfo-gam-2026-07-31</td><td>GAM Esports</td><td>0.59</td><td>0.0005</td><td>输</td><td>CTBC Flying Oyster 2:1 GAM Esports（打满 BO3，G3 无独立市场/无成交，按整场结算归属补足）</td></tr><tr><td>lol-fnc-mkoi-2026-08-02</td><td>Movistar KOI</td><td>0.595</td><td>0.465</td><td>赢</td><td>Movistar KOI 2:1 Fnatic（打满 BO3，G3 无独立市场/无成交，按整场结算归属补足）</td></tr><tr><td>lol-lgd-jdg-2026-08-16</td><td>JD Gaming</td><td>0.645</td><td>0.0005</td><td>输</td><td>LGD Gaming 2:1 JD Gaming（打满 BO3，G3 无独立市场/无成交，按整场结算归属补足）</td></tr><tr><td>lol-gen-kt-2026-08-19</td><td>Gen.G</td><td>0.995</td><td>0.995</td><td>赢</td><td>Gen.G 2:1 KT Rolster（打满 BO3，G3 无独立市场/无成交，按整场结算归属补足）</td></tr><tr><td>lol-lng-wb-2026-08-19</td><td>Weibo Gaming</td><td>0.665</td><td>0.605</td><td>赢</td><td>Weibo Gaming 2:1 LNG Esports（打满 BO3，G3 无独立市场/无成交，按整场结算归属补足）</td></tr><tr><td>lol-al-we-2026-08-21</td><td>Anyone&#x27;s Legend</td><td>0.605</td><td>0.0005</td><td>输</td><td>Team WE 2:1 Anyone&#x27;s Legend（打满 BO3，G3 无独立市场/无成交，按整场结算归属补足）</td></tr><tr><td>lol-fly-sr-2026-10-07</td><td>FlyQuest</td><td>0.655</td><td>0.645</td><td>赢</td><td>FlyQuest 2:1 Shopify Rebellion（打满 BO3，G3 无独立市场/无成交，按整场结算归属补足）</td></tr></tbody></table>
+</div>
+
+<div class="card">
+<h2>H2 · 强队 G1 碾压后的后续小局 <span class='badge amber'>部分支持</span></h2>
+<p class="sub">强队 = 赛前 ≥60c；G1 强队赢且全程未跌破 70c、收在 99c+；观察系列赛胜率、干净横扫率、G2 胜率。BO3 的“3:0”按 2:0 计。</p>
+<div class="quote">“强队第一局完全碾压，很大概率 3:0 带走，第二、第三局就可以大胆下注。”</div>
+<p class="sub">下表指标口径：<b>G2 单局</b>买入（均价 0.81），不是系列赛胜率。</p>
+<div class="metrics"><div class='metric'><div class='k'>样本</div><div class='v'>14</div></div><div class='metric'><div class='k'>命中</div><div class='v'>93%</div></div><div class='metric'><div class='k'>均价</div><div class='v'>0.81</div></div><div class='metric'><div class='k'>EV</div><div class='v'>+0.15</div></div></div>
+<p class="verdict"><b>结果：</b>系列赛 14/14 赢，但干净横扫只有 11/14；G2 单局 13/14 赢。“系列赛大概率赢”成立，“必 3:0”不成立。</p>
+<div class="refine"><b>关键区分：</b>“系列赛赢”与“干净横扫”不是一回事。当前样本里系列赛胜率 100%，但 2-0/3-0 只有 79%；G2 单局胜率 93%（13/14），按均价 0.81 计算的 G2 EV 为 +0.15。所以“第二局大胆下注”比“第三局/横扫”更有数据支撑。</div>
+<table><thead><tr><th>slug</th><th>format</th><th>fav</th><th>score</th><th>series_win</th><th>clean_sweep</th><th>g2_entry</th><th>g2_win</th></tr></thead><tbody><tr><td>lol-t1-tl2-2026-07-01</td><td>BO5</td><td>T1</td><td>3-0</td><td>赢</td><td>赢</td><td>0.795</td><td>赢</td></tr><tr><td>lol-hle1-tsw-2026-07-02</td><td>BO5</td><td>Hanwha Life Esports</td><td>3-0</td><td>赢</td><td>赢</td><td>0.935</td><td>赢</td></tr><tr><td>lol-gen-jdg-2026-07-17</td><td>BO3</td><td>Gen.G</td><td>2-0</td><td>赢</td><td>赢</td><td>0.785</td><td>赢</td></tr><tr><td>lol-blg-tt-2026-07-23</td><td>BO3</td><td>Bilibili Gaming</td><td>1-1</td><td>赢</td><td>输</td><td>0.835</td><td>输</td></tr><tr><td>lol-dfm-gam-2026-07-26</td><td>BO3</td><td>GAM Esports</td><td>2-0</td><td>赢</td><td>赢</td><td>0.79</td><td>赢</td></tr><tr><td>lol-al-edg-2026-07-31</td><td>BO3</td><td>Anyone&#x27;s Legend</td><td>2-0</td><td>赢</td><td>赢</td><td>0.795</td><td>赢</td></tr><tr><td>lol-al-tt-2026-08-01</td><td>BO3</td><td>Anyone&#x27;s Legend</td><td>2-0</td><td>赢</td><td>赢</td><td>0.765</td><td>赢</td></tr><tr><td>lol-sk-g2-2026-08-02</td><td>BO3</td><td>G2 Esports</td><td>2-0</td><td>赢</td><td>赢</td><td>0.775</td><td>赢</td></tr><tr><td>lol-kc-th-2026-08-03</td><td>BO3</td><td>Karmine Corp</td><td>2-0</td><td>赢</td><td>赢</td><td>0.835</td><td>赢</td></tr><tr><td>lol-blg-we-2026-09-03</td><td>BO5</td><td>Bilibili Gaming</td><td>3-1</td><td>赢</td><td>输</td><td>0.735</td><td>赢</td></tr><tr><td>lol-ly-sr-2026-09-26</td><td>BO5</td><td>LYON</td><td>3-1</td><td>赢</td><td>输</td><td>0.765</td><td>赢</td></tr><tr><td>lol-red-kt-2026-10-04</td><td>BO3</td><td>KT Rolster</td><td>2-0</td><td>赢</td><td>赢</td><td>0.925</td><td>赢</td></tr><tr><td>lol-sr-jdg-2026-10-05</td><td>BO3</td><td>JD Gaming</td><td>2-0</td><td>赢</td><td>赢</td><td>0.815</td><td>赢</td></tr><tr><td>lol-kc-mvk-2026-10-18</td><td>BO5</td><td>Karmine Corp</td><td>3-0</td><td>赢</td><td>赢</td><td>0.795</td><td>赢</td></tr></tbody></table>
+</div>
+
+<div class="card">
+<h2>H3 · BO5 的 G3/G4 弱队深水抄底 <span class='badge amber'>有条件支持</span></h2>
+<p class="sub">弱队 = 赛前 &lt;50c；在 G3/G4 的局内窗口，弱队整场赔率首次触及阈值即买入；按 G3 前的比分拆分。</p>
+<div class="quote">“BO5 焦灼局，在 G3、G4 关注弱队那一方去抄底买，收益率会更高。”</div>
+<div class="metrics">
+<div class="metric"><div class="k">样本（≤0.20）</div><div class="v">43</div></div>
+<div class="metric"><div class="k">命中</div><div class="v">12%</div></div>
+<div class="metric"><div class="k">均价（首次触价）</div><div class="v">0.104</div></div>
+<div class="metric"><div class="k">EV@0.20</div><div class="v">-0.42</div></div>
+</div>
+<p class="sub">注意：按实际首次触价（均价 0.104）计算 EV 为 +0.21，偏乐观；按保守的 0.20 限价成交则 EV 为 -0.42。</p>
+<p class="verdict"><b>结果：</b>阈值 ≤0.20 时共 43 场，命中 12%，按 0.20 成交 EV -0.42；整体不是稳定正期望，必须按比分和更深阈值拆开看。</p>
+<div class="refine"><b>最重要的分层：</b>G3 前 1-1 时，≤0.10 阈值 17 场、命中 18%、按 0.10 成交 EV +0.77；0-2 时 25 场、命中 8%、EV -0.20。结论：<b>只在 1-1 的深水买，0-2 的深水不买</b>。这是彩票仓逻辑，必须小注、必须等价格，不能用市价追。</div>
+<table><thead><tr><th>slug</th><th>dog</th><th>score_before</th><th>threshold</th><th>entry</th><th>game</th><th>won</th><th>result</th></tr></thead><tbody><tr><td>lol-t1-tl2-2026-07-01</td><td>Team Liquid</td><td>0-2</td><td>0.2</td><td>0.0135</td><td>3</td><td>输</td><td>T1 3:0 Team Liquid</td></tr><tr><td>lol-hle1-tsw-2026-07-02</td><td>Team Secret Whales</td><td>0-2</td><td>0.2</td><td>0.004</td><td>3</td><td>输</td><td>Hanwha Life Esports 3:0 Team Secret Whales</td></tr><tr><td>lol-ly-fur-2026-07-03</td><td>FURIA Esports</td><td>0-2</td><td>0.2</td><td>0.065</td><td>3</td><td>输</td><td>LYON 3:0 FURIA Esports</td></tr><tr><td>lol-g2-tes-2026-07-04</td><td>G2 Esports</td><td>0-2</td><td>0.2</td><td>0.095</td><td>3</td><td>赢</td><td>G2 Esports 3:2 Top Esports（打满 BO5，G5 无独立市场/无成交，按整场结算归属补足）</td></tr><tr><td>lol-tsw-tes-2026-07-04</td><td>Team Secret Whales</td><td>1-1</td><td>0.2</td><td>0.125</td><td>3</td><td>赢</td><td>Team Secret Whales 3:1 Top Esports</td></tr><tr><td>lol-blg-ly-2026-07-05</td><td>LYON</td><td>0-2</td><td>0.2</td><td>0.01</td><td>3</td><td>输</td><td>Bilibili Gaming 3:0 LYON</td></tr><tr><td>lol-hle1-g2-2026-07-05</td><td>G2 Esports</td><td>0-2</td><td>0.2</td><td>0.0275</td><td>3</td><td>输</td><td>Hanwha Life Esports 3:0 G2 Esports</td></tr><tr><td>lol-t1-fur-2026-07-06</td><td>FURIA Esports</td><td>0-2</td><td>0.2</td><td>0.0025</td><td>3</td><td>输</td><td>T1 3:0 FURIA Esports</td></tr><tr><td>lol-ly-tsw-2026-07-08</td><td>Team Secret Whales</td><td>0-2</td><td>0.2</td><td>0.085</td><td>3</td><td>输</td><td>LYON 3:0 Team Secret Whales</td></tr><tr><td>lol-hle1-ly-2026-07-11</td><td>LYON</td><td>1-1</td><td>0.2</td><td>0.185</td><td>3</td><td>输</td><td>Hanwha Life Esports 3:2 LYON（打满 BO5，G5 无独立市场/无成交，按整场结算归属补足）</td></tr><tr><td>lol-kc-dk-2026-07-19</td><td>Karmine Corp</td><td>0-2</td><td>0.2</td><td>0.095</td><td>3</td><td>输</td><td>Dplus KIA 3:0 Karmine Corp</td></tr><tr><td>lol-tsw-cfo-2026-08-02</td><td>CTBC Flying Oyster</td><td>0-2</td><td>0.2</td><td>0.0415</td><td>3</td><td>输</td><td>Team Secret Whales 3:0 CTBC Flying Oyster</td></tr></tbody></table>
+</div>
+
+<div class="card">
+<h2>H4 · 整场基本盘 + 小局极值卫星仓 <span class='badge amber'>盲买不支持 · 确认后待验证</span></h2>
+<p class="sub">基本盘 = 整场/系列赛形态；卫星仓 = 小局价格跌到 0.01–0.05 后的极值反转，只用小注博高赔。先记录原则，再验证“哪些极值是假死”。</p>
+<div class="quote">“有时候关注整场比赛形态的话，交易会比较容易一点；小局中可以关注极值反转，0.01 到 0.05 之间突然反转，偶尔抓到一两个机会就很好。先有基本盘，再有一些额外的暴利收益。”</div>
+<p class="sub">盲买基线：只要某侧小局价首次触及阈值就买入，持有到该小局结算；<b>不筛比赛上下文</b>。EV 按阈值成交计算。</p>
+<table><thead><tr><th>阈值</th><th>触及小局</th><th>该侧最终赢</th><th>EV@阈值</th><th>之后到过 0.20</th></tr></thead><tbody><tr><td>≤0.01</td><td>312</td><td>1%</td><td>-0.04</td><td>1%</td></tr><tr><td>≤0.03</td><td>447</td><td>2%</td><td>-0.25</td><td>4%</td></tr><tr><td>≤0.05</td><td>480</td><td>4%</td><td>-0.29</td><td>8%</td></tr><tr><td>≤0.10</td><td>518</td><td>8%</td><td>-0.21</td><td>21%</td></tr></tbody></table>
+<p class="verdict"><b>结果：</b>0.05 阈值共 480 个小局触及，命中 4%，按 0.05 成交 EV -0.29；0.01 阈值 EV -0.04（接近打平但极难反弹）。盲买极值是负期望，极值本身不是 edge；反弹卖出更差（0.05 买入、0.10 卖出 EV -0.68），因为它砍掉了尾部。但先跌到 ≤0.05、再重新站上 0.30 才买，25 个样本命中 52%、EV +0.29（95% 区间 -0.20 ~ +0.78）——方向是“等确认而不是抄最低”，但样本太小，区间跨零，还不能算验证通过。</p>
+<div class="refine"><b>反弹卖出也不救：</b>以 0.05 买入为例，反弹到 0.10 的只有 16%，按 0.10 卖出 EV -0.68；反弹到 0.20 的只有 8%，EV -0.68。极值本身的赔率很高，但触发频率太低。</div>
+<table><thead><tr><th>0.05 买入后的卖点</th><th>触发比例</th><th>EV</th></tr></thead><tbody><tr><td>0.10</td><td>16%</td><td>-0.68</td></tr><tr><td>0.20</td><td>8%</td><td>-0.68</td></tr><tr><td>0.30</td><td>6%</td><td>-0.62</td></tr></tbody></table>
+<p class="sub" style="margin-top:10px">再加两个“看起来像假死”的过滤器，仍然没有救回来：</p>
+<table><thead><tr><th>过滤器（0.05 买入）</th><th>n</th><th>命中</th><th>EV@0.05</th></tr></thead><tbody><tr><td>触价前曾到过 0.30</td><td>425</td><td>3%</td><td>-0.34</td></tr><tr><td>5 分钟内从 0.20 砸到 0.05</td><td>259</td><td>4%</td><td>-0.23</td></tr></tbody></table>
+<p class="sub" style="margin-top:14px">换个入场方式：<b>不在极值接飞刀</b>，而是等价格从 ≤0.05 重新站上确认位再买（同一小局、同一侧）。已剔除结算跳价（要求确认时距窗口结束 ≥2 分钟且成交价 ≤0.90）。价格是确认后首个可观测到的中间价，跳空时可能高于确认位。</p>
+<table><thead><tr><th>确认位</th><th>n</th><th>命中</th><th>均价</th><th>中位价</th><th>EV（实际价）</th><th>EV 95% 区间</th><th>之后到过 0.70</th></tr></thead><tbody><tr><td>重新站上 0.20</td><td>34</td><td>44%</td><td>0.298</td><td>0.263</td><td>+0.60</td><td>-0.04 ~ +1.23</td><td>53%</td></tr><tr><td>重新站上 0.30</td><td>25</td><td>52%</td><td>0.431</td><td>0.385</td><td>+0.29</td><td>-0.20 ~ +0.78</td><td>64%</td></tr><tr><td>重新站上 0.40</td><td>21</td><td>52%</td><td>0.532</td><td>0.48</td><td>+0.07</td><td>-0.37 ~ +0.52</td><td>71%</td></tr><tr><td>重新站上 0.50</td><td>16</td><td>62%</td><td>0.657</td><td>0.671</td><td>-0.01</td><td>-0.41 ~ +0.37</td><td>88%</td></tr></tbody></table>
+<div class="refine"><b>这是本页目前最强的一条信号：</b>极值本身负期望，但“先砸到 0.05 以下、再重新站上 0.30”的样本 25 个、命中 52%、按实际入场价 EV +0.29；站上 0.20 更早、赔率更好（EV +0.60），但只有 34 个样本。站上 0.50 才买，赔率已经被吃掉，EV 只剩 -0.01。方向是“等确认”，不是“抄最低”。</div>
+<div class="refine"><b>代价是绝大多数时间不出手：</b>473 个触及 ≤0.05 的小局里，只有 34 个（7%）后来重新站上 0.20。也就是说，极值策略的常态是“看着它归零、什么都不做”。这恰好符合卫星仓的定位：低频、可选、错过无所谓。</div>
+<div class="refine"><b>但必须先泼冷水：</b>这些是<b>条件样本</b>——已经筛掉了“砸下去就再没回来”的绝大多数小局；样本只有 25 个，未扣点差/滑点。更关键的是 <b>EV 的 95% 自助区间跨零</b>（0.20 档 -0.04 ~ +1.23，0.30 档 -0.20 ~ +0.78），命中率的 Wilson 区间也只有 34%–70%。它证明“确认反转值得观察”，不证明可以实盘放大。任何使用都必须同时满足：基本盘独立、卫星仓 1–2%、不补仓、有本场上下文（经济/资源/阵容/团战）而非只看价格。</div>
+<div class="refine"><b>稳健性检查：</b>要求“触价前曾站上 0.20”（排除一直很便宜的弱侧，只保留真正的崩塌后反转），0.30 确认档剩 21 个样本、命中 57%、EV +0.43（95% 区间 -0.11 ~ +0.99）。方向一致，但样本更小，同样不能算验证通过。</div>
+<div class="refine"><b>结论：</b>0.01–0.05 这个价格本身不是 edge。真正可能存在的 edge 是“判断哪一次极值是假死”——经济差、资源、阵容、团战失误、选手状态。没有这些上下文，盲目扫极值是负期望；有了上下文，也只能当卫星仓；而且入场点应是反转确认位（0.20–0.30），不是最低点。</div>
+<div class="refine"><b>资金分层（必须）：</b>① 基本盘与卫星仓分账，卫星预算只来自已实现利润，单日上限固定；② 极值仓单笔 ≤ 总资金 1–2%，每场最多 1 笔、每日最多 2 笔；③ 不补仓、不摊平，0.01 不是“免费期权”；④ 双条件才买：反转确认（站上 0.20–0.30）+ 本场上下文，缺一不买；⑤ 确认后又跌回 0.15 以下视为失败，认亏离场，不二次摊平。</div>
+</div>
+
+<div class="card">
+<h2>高频形态 ≠ 有边际</h2>
+<p class="sub">用户观察“有些形态频繁反复出现”。当前库的标签出现次数（双方合计，不是独立场次）：</p>
+<p style="font-size:13px;margin:6px 0"><b>逐小局：</b>B4 直线阴跌 462 · A2 中位 U 型反转 162 · A3 折价修复 157 · C2 五五开开局碾压 120 · 热门全程压制 111 · B1 尾盘崩塌 63 · A1 V 型极值反转 41 · A5 W 型双底 36。</p>
+<p style="font-size:13px;margin:6px 0"><b>整局：</b>B4 直线阴跌 175 · A3 折价修复 95 · 热门全程压制 75 · A2 中位 U 型反转 68 · A4 下狗整场反转 56 · C2 五五开开局碾压 37 · B2 死亡螺旋 26。</p>
+<p class="verdict">出现频率高，只说明它常见；能不能交易，取决于“在这个形态下、以什么价格入场”的 EV。后续统计必须绑定入场价与成本。</p>
+</div>
+
+<div class="card">
+<h2>下一步怎么验证</h2>
+<ul class="checklist">
+<li><b>样本外：</b>用 2026-10-15 之后的新比赛做前瞻验证，不回头改阈值；H1/H2/H3/H4 各自至少 30 场独立样本。</li>
+<li><b>成交价：</b>把中间价换成 ask/成交 tape，重算 EV；当前结果对 1-2c 的点差非常敏感。</li>
+<li><b>分层：</b>按联赛（LCK/LPL/LEC/LCP）、BO3/BO5、赛前热门程度（60-70 / 70-80 / 80+）分别统计，禁止混算。</li>
+<li><b>反例库：</b>每次验证必须同时记录输的场次和“价格没触及”的场次，避免只看命中的幸存者偏差。</li>
+<li><b>升级门槛：</b>H1 当前负 EV，不升级；H2 只升级“G2 单局”观察；H3 只升级“1-1 + ≤0.10 彩票仓”观察；H4 只把“≤0.05 后重新站上 0.30”列为观察候选，盲买极值不升级。任何一条都不到 L1。</li>
+</ul>
+</div>
+
+<div class="foot">数据：reports/pattern_shapes_lol_tier1_2026-07_2026-10.json（231 场，60s）· 明细：docs/data/intel/pattern_hypotheses.json · 规则：knowledge/PATTERN_HYPOTHESES.md<br>
+生成器：tools/build_pattern_hypotheses.py · 本页只读，不执行交易。</div>
+</div></body></html>

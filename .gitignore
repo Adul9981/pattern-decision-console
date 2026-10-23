@@ -1,0 +1,32 @@
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.coverage
+htmlcov/
+.venv/
+venv/
+
+# Local secrets and machine-specific configuration
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+secrets/
+
+# Runtime output
+state/*.json
+state/*.log
+!state/.gitkeep
+*.tmp
+
+# Optional large raw snapshot corpus
+docs/data/snapshots/*
+!docs/data/snapshots/.gitkeep
+
+# OS/editor files
+.DS_Store
+.idea/
+.vscode/
+*.swp

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230071e3'/%3E%3Cpath d='M14 42l10-14 8 9 18-23' stroke='white' stroke-width='6' fill='none' stroke-linecap='round'/%3E%3C/svg%3E">
+<title>形态分级体系（2026-10-15）</title>
+<style>
+:root{--blue:#0071e3;--bg:#f5f5f7;--card:#fff;--tx:#1d1d1f;--mu:#6e6e73;--bd:#e5e5ea;--amber:#ff9f0a;--green:#1a7f37}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);font:15px/1.55 -apple-system,BlinkMacSystemFont,"PingFang SC","Helvetica Neue",Arial,sans-serif}
+.bar-top{background:#1d1d1f;color:#fff;padding:14px 20px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px}
+.bar-top b{font-weight:600} .bar-top span{color:#a1a1a6;font-size:13px}
+html.embed .bar-top{display:none} html.embed .wrap{padding-top:14px}
+.wrap{max-width:1120px;margin:0 auto;padding:20px 16px 60px}
+h1{font-size:25px;margin:16px 0 6px;font-weight:600} h2{font-size:19px;margin:30px 0 10px;font-weight:600}
+.sub{color:var(--mu);margin:0 0 16px;font-size:13.5px}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin:14px 0 6px}
+.card{background:var(--card);border-radius:14px;padding:16px;margin:12px 0}
+.card .k{font-size:12px;color:var(--mu)} .card .v{font-size:24px;font-weight:600;margin-top:4px}
+.card .n{font-size:12px;color:var(--mu);margin-top:2px}
+table{width:100%;border-collapse:collapse;font-size:13.5px}
+th{text-align:left;color:var(--mu);font-weight:500;padding:7px 9px;border-bottom:1px solid var(--bd);font-size:12.5px;white-space:nowrap}
+td{padding:8px 9px;border-bottom:1px solid var(--bd)}
+.tbl{overflow-x:auto}
+.z{color:#c7c7cc} .tot{font-weight:600} .thin{color:var(--amber)} .ok{color:var(--green)}
+.cellhead{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;font-size:13px;margin-top:10px;padding-top:10px;border-top:1px solid var(--bd)}
+.cellhead span{color:var(--mu);font-size:12.5px}
+.cellfoot{font-size:12.5px;color:var(--mu);margin-top:6px}
+.note{background:#fff;border-left:3px solid var(--blue);border-radius:10px;padding:14px 18px;font-size:13.5px;color:#3a3a3c}
+.note li{margin:6px 0}
+.tier{display:flex;gap:10px;align-items:flex-start;padding:10px 0;border-bottom:1px solid var(--bd)}
+.tier:last-child{border-bottom:none}
+.tier .lv{flex:0 0 118px;font-weight:600;font-size:13.5px}
+.tier .tp{flex:1;font-size:13.5px;color:#3a3a3c}
+.tag{display:inline-block;font-size:11px;padding:1px 8px;border-radius:7px;margin-right:6px;vertical-align:1px}
+.tag.must{background:#ffe8e6;color:#c0392b} .tag.qual{background:#fff4e0;color:#b26a00}
+.tag.no{background:#ececf0;color:#6e6e73}
+a.pg{display:block;background:#fff;border-radius:12px;padding:12px 14px;margin:8px 0;text-decoration:none;color:var(--tx)}
+a.pg b{font-weight:600} a.pg div{color:var(--mu);font-size:12.5px;margin-top:3px}
+</style>
+<script>if(location.search.indexOf("embed=1")>=0)document.documentElement.classList.add("embed");</script></head><body>
+<div class="bar-top"><b>Polymarket 电竞情报库 · 形态分级体系</b><span>生成 2026-10-15</span></div>
+<div class="wrap">
+<h1>一共能搞出多少种形态，该怎么分级</h1>
+<p class="sub">数据源：形态库一级赛事明细（LoL 231 场 / CS2 62 场）· 定义来自 tools/classify_pattern.py v1.3</p>
+
+<div class="cards">
+<div class="card"><div class="k">分类器定义的形态</div><div class="v">16</div><div class="n">A1-A7 / B1-B4(含低开) / C1-C2(含变体) / 热门压制</div></div>
+<div class="card"><div class="k">实际已观测到</div><div class="v">14</div><div class="n">胜方侧 10 种 + 负方侧 4 个 B 类</div></div>
+<div class="card"><div class="k">有效主格</div><div class="v">4</div><div class="n">游戏 × 范围（粒度/侧作为格内维度）</div></div>
+<div class="card"><div class="k">胜方侧样本</div><div class="v">LoL 718 / CS2 183</div><div class="n">各游戏内部整局+逐局；不跨游戏相加</div></div>
+</div>
+
+<h2>零、赛事分级：本库只收一级（关键）赛事</h2><p class="sub">2026-10-15 用户指令：<b>EMEA Masters 与小区域联赛的数据不要了</b>。本页（以及本库全部页面）只统计一级赛事；二级与资格赛/升降级赛已从统计口径剔除（原始快照仍在 docs/data/snapshots，旧的全分级明细 JSON 保留在 reports/ 作存档，不参与出数）。「已剔除」按本地全部快照 slug 统计（含 2026-08 窗口；一级关键词已覆盖赛季真实命名：LCK 的 Legend/Rise Group 与 Play-In、LPL 的 Ascend/Nirvana、LCP Swiss Stage、LoL 侧 EWC/MSI）。</p><div class="card"><div class="tbl"><table><thead><tr><th>游戏</th><th>本库（一级）</th><th>已剔除：二级</th><th>已剔除：其他</th><th>剔除合计</th></tr></thead><tbody><tr><td><b>LoL</b></td><td>231</td><td>495</td><td>62</td><td>557</td></tr><tr><td><b>CS2</b></td><td>62</td><td>924</td><td>1041</td><td>1965</td></tr></tbody></table></div></div><p class="sub">分级口径：config/esports_tiers.json · 判定 tools/esports_tier.py · 回归 tests/test_esports_tier.py。</p>
+
+<h2>一、分级怎么分：哪几层必须拆、哪几层拆不动</h2>
+<div class="card">
+<div class="tier"><div class="lv"><span class="tag must">必须拆</span>游戏</div><div class="tp">
+<b>LoL / CS2 分开</b>。CS2 是地图制：BO3 只开 Map1/Map2 胜者盘（第三图只有 Rounds 盘，决胜图按整场结算补足）；
+LoL 是标准小局制，逐局盘更全。两者"整局价格被砸后回弹"的机制不同，混算会把赛制差异读成形态差异。</div></div>
+<div class="tier"><div class="lv"><span class="tag must">必须拆</span>范围</div><div class="tp">
+<b>整局 / 逐局分开</b>。实测分布完全不同：整局由 A3 折价修复 + 热门压制 + A2 中位 U 型主导；
+逐局由 C2 五五开开局碾压主导（LoL 逐局 120/491，约 24%）。分开才能拿到各自真实的形态占比。</div></div>
+<div class="tier"><div class="lv"><span class="tag must">必须拆</span>侧</div><div class="tp">
+<b>胜方侧 / 负方侧分开</b>。B 类（直线阴跌 / 低开阴跌 / 死亡螺旋）几乎只出现在负方侧，
+是输家代币归零的恒等式产物；把两侧合在一起算，会让 B 类占比虚高到无意义。</div></div>
+<div class="tier"><div class="lv"><span class="tag qual">当质量档</span>粒度</div><div class="tp">
+<b>60s / 600s 不再拆成独立分级维度</b>：2026-10-18 起一级赛事已全量回填 60s
+（LoL 231/231、CS2 62/62），600s 档为 0；粒度只作为数据质量标注
+（60s = 采样价格，无成交分钟可能沿用前值，不是订单簿）。
+后续若纳入未回填场次，再按档分层。</div></div>
+<div class="tier"><div class="lv"><span class="tag no">不拆</span>联赛</div><div class="tp">
+联赛（LCK / LPL / LEC / 次级联赛）暂不拆：它影响的是"队伍实力差"这一先验，属于策略层的筛选参数，
+不该混进形态分类维度——否则每个格子的样本会被切碎到无法统计。</div></div>
+</div>
+
+<h2>二、四个主格：各自的形态清单与样本</h2>
+<p class="sub">每格表内：60s / 600s 是粒度档，"状态"按单格样本是否 ≥20 例判定。样本 = 该格已结算市场的胜方侧。</p>
+<div class='card'><div class='tbl'><table><thead><tr><th>形态</th><th>60s</th><th>600s</th><th>合计</th><th>状态</th></tr></thead><tbody><tr><td>A3_折价修复</td><td class=''>95</td><td class='z'>·</td><td class='tot'>95</td><td class='ok'>可用</td></tr><tr><td>热门全程压制</td><td class=''>75</td><td class='z'>·</td><td class='tot'>75</td><td class='ok'>可用</td></tr><tr><td>A2_中位U型反转</td><td class=''>68</td><td class='z'>·</td><td class='tot'>68</td><td class='ok'>可用</td></tr><tr><td>A4_下狗整场反转</td><td class=''>56</td><td class='z'>·</td><td class='tot'>56</td><td class='ok'>可用</td></tr><tr><td>C2_五五开开局碾压</td><td class=''>37</td><td class='z'>·</td><td class='tot'>37</td><td class='ok'>可用</td></tr><tr><td>A1_V型极值反转</td><td class=''>16</td><td class='z'>·</td><td class='tot'>16</td><td class='thin'>样本不足</td></tr><tr><td>A5_W型双底</td><td class=''>12</td><td class='z'>·</td><td class='tot'>12</td><td class='thin'>样本不足</td></tr><tr><td>A6_反弹确认</td><td class=''>4</td><td class='z'>·</td><td class='tot'>4</td><td class='thin'>样本不足</td></tr></tbody></table></div><div class='cellhead'><b>LoL · 整局</b><span>样本 227 例（60s 227）· 形态 8 种 · 可用 5 种（≥20 例）</span></div><div class='cellfoot'>最薄形态仅 4 例。头部形态已可下方向性结论；长尾（A6/A7/C2 早期缩距 这类）属天然稀有，按现口径要全部 ≥20 例需扩约 5×（≈ 1135 例）——现实做法是把长尾单列观察区，而不是硬凑样本。</div></div>
+<div class='card'><div class='tbl'><table><thead><tr><th>形态</th><th>60s</th><th>600s</th><th>合计</th><th>状态</th></tr></thead><tbody><tr><td>A2_中位U型反转</td><td class=''>162</td><td class='z'>·</td><td class='tot'>162</td><td class='ok'>可用</td></tr><tr><td>A3_折价修复</td><td class=''>157</td><td class='z'>·</td><td class='tot'>157</td><td class='ok'>可用</td></tr><tr><td>C2_五五开开局碾压</td><td class=''>120</td><td class='z'>·</td><td class='tot'>120</td><td class='ok'>可用</td></tr><tr><td>热门全程压制</td><td class=''>111</td><td class='z'>·</td><td class='tot'>111</td><td class='ok'>可用</td></tr><tr><td>A1_V型极值反转</td><td class=''>41</td><td class='z'>·</td><td class='tot'>41</td><td class='ok'>可用</td></tr><tr><td>A5_W型双底</td><td class=''>36</td><td class='z'>·</td><td class='tot'>36</td><td class='ok'>可用</td></tr><tr><td>A6_反弹确认</td><td class=''>25</td><td class='z'>·</td><td class='tot'>25</td><td class='ok'>可用</td></tr><tr><td>C2_早期缩距/热门确立</td><td class=''>8</td><td class='z'>·</td><td class='tot'>8</td><td class='thin'>样本不足</td></tr><tr><td>A7_强强对话错杀</td><td class=''>6</td><td class='z'>·</td><td class='tot'>6</td><td class='thin'>样本不足</td></tr></tbody></table></div><div class='cellhead'><b>LoL · 逐局</b><span>样本 491 例（60s 491）· 形态 9 种 · 可用 7 种（≥20 例）</span></div><div class='cellfoot'>最薄形态仅 6 例。头部形态已可下方向性结论；长尾（A6/A7/C2 早期缩距 这类）属天然稀有，按现口径要全部 ≥20 例需扩约 3×（≈ 1636 例）——现实做法是把长尾单列观察区，而不是硬凑样本。</div></div>
+<div class='card'><div class='tbl'><table><thead><tr><th>形态</th><th>60s</th><th>600s</th><th>合计</th><th>状态</th></tr></thead><tbody><tr><td>A3_折价修复</td><td class=''>28</td><td class='z'>·</td><td class='tot'>28</td><td class='ok'>可用</td></tr><tr><td>热门全程压制</td><td class=''>19</td><td class='z'>·</td><td class='tot'>19</td><td class='thin'>样本不足</td></tr><tr><td>A2_中位U型反转</td><td class=''>19</td><td class='z'>·</td><td class='tot'>19</td><td class='thin'>样本不足</td></tr><tr><td>A4_下狗整场反转</td><td class=''>14</td><td class='z'>·</td><td class='tot'>14</td><td class='thin'>样本不足</td></tr><tr><td>C2_五五开开局碾压</td><td class=''>7</td><td class='z'>·</td><td class='tot'>7</td><td class='thin'>样本不足</td></tr><tr><td>A5_W型双底</td><td class=''>3</td><td class='z'>·</td><td class='tot'>3</td><td class='thin'>样本不足</td></tr><tr><td>A7_强强对话错杀</td><td class=''>2</td><td class='z'>·</td><td class='tot'>2</td><td class='thin'>样本不足</td></tr><tr><td>A1_V型极值反转</td><td class=''>2</td><td class='z'>·</td><td class='tot'>2</td><td class='thin'>样本不足</td></tr><tr><td>A6_反弹确认</td><td class=''>1</td><td class='z'>·</td><td class='tot'>1</td><td class='thin'>样本不足</td></tr></tbody></table></div><div class='cellhead'><b>CS2 · 整局</b><span>样本 62 例（60s 62）· 形态 9 种 · 可用 1 种（≥20 例）</span></div><div class='cellfoot'>最薄形态仅 1 例。头部形态已可下方向性结论；长尾（A6/A7/C2 早期缩距 这类）属天然稀有，按现口径要全部 ≥20 例需扩约 20×（≈ 1240 例）——现实做法是把长尾单列观察区，而不是硬凑样本。</div></div>
+<div class='card'><div class='tbl'><table><thead><tr><th>形态</th><th>60s</th><th>600s</th><th>合计</th><th>状态</th></tr></thead><tbody><tr><td>A2_中位U型反转</td><td class=''>40</td><td class='z'>·</td><td class='tot'>40</td><td class='ok'>可用</td></tr><tr><td>A3_折价修复</td><td class=''>37</td><td class='z'>·</td><td class='tot'>37</td><td class='ok'>可用</td></tr><tr><td>C2_五五开开局碾压</td><td class=''>35</td><td class='z'>·</td><td class='tot'>35</td><td class='ok'>可用</td></tr><tr><td>热门全程压制</td><td class=''>23</td><td class='z'>·</td><td class='tot'>23</td><td class='ok'>可用</td></tr><tr><td>A5_W型双底</td><td class=''>10</td><td class='z'>·</td><td class='tot'>10</td><td class='thin'>样本不足</td></tr><tr><td>A1_V型极值反转</td><td class=''>5</td><td class='z'>·</td><td class='tot'>5</td><td class='thin'>样本不足</td></tr><tr><td>C2_早期缩距/热门确立</td><td class=''>3</td><td class='z'>·</td><td class='tot'>3</td><td class='thin'>样本不足</td></tr><tr><td>A6_反弹确认</td><td class=''>1</td><td class='z'>·</td><td class='tot'>1</td><td class='thin'>样本不足</td></tr></tbody></table></div><div class='cellhead'><b>CS2 · 逐局</b><span>样本 121 例（60s 121）· 形态 8 种 · 可用 4 种（≥20 例）</span></div><div class='cellfoot'>最薄形态仅 1 例。头部形态已可下方向性结论；长尾（A6/A7/C2 早期缩距 这类）属天然稀有，按现口径要全部 ≥20 例需扩约 20×（≈ 2420 例）——现实做法是把长尾单列观察区，而不是硬凑样本。</div></div>
+
+<h2>三、粒度档现状（一级赛事已全量 60s）</h2>
+<div class="card"><div class="tbl"><table>
+<thead><tr><th>格</th><th>样本</th><th>600s</th><th>60s</th><th>分钟级占比</th></tr></thead>
+<tbody><tr><td>LoL · 整局</td><td>227</td><td>0</td><td>227</td><td>100%</td></tr><tr><td>LoL · 逐局</td><td>491</td><td>0</td><td>491</td><td>100%</td></tr><tr><td>CS2 · 整局</td><td>62</td><td>0</td><td>62</td><td>100%</td></tr><tr><td>CS2 · 逐局</td><td>121</td><td>0</td><td>121</td><td>100%</td></tr></tbody></table></div></div>
+
+<h2>四、结论：能搞出多少种形态</h2>
+<div class="note"><ul>
+<li><b>上限由分类器定义决定：16 个</b>（A1-A7、B1/B2/B3/B4 直线/B4 低开、C1、C2、C2 早期缩距、热门全程压制）。
+C3 中位震荡后突破只在形态手册里有定义、分类器尚未实现，<b>不计入</b>。</li>
+<li><b>当前实际观测到 14 个</b>（胜方侧 10 个 A/C 类 + 负方侧 4 个 B 类：B1 尾盘崩塌 / B2 死亡螺旋 / B3 假反弹后归零 / B4 直线阴跌 / B4 低开阴跌）；
+唯一未出现的是 <b>C1 中位震荡</b>（已结算市场里为 0，只在未结算/未走完的盘上出现过）。
+另有 1 个标签在负方侧噪声出现（A5_W型双底），已计在胜方侧、不重复计数。</li>
+<li><b>按主格拆开后，每格各自成立 8-9 种</b>（四格分别是 8 / 9 / 9 / 8 种）——这才是"我们能拿来用的形态数"。
+格内进入"可用"档（单格 ≥20 例）的形态才是策略候选，四格各为 1-7 种，其余算观察区。</li>
+<li><b>结论：形态种类本身够用（16 个定义覆盖了绝大多数走势），缺的是"每个格子里每种形态的样本密度"</b>。
+LoL 两格样本充足（整局 227 / 逐局 491 例），CS2 两格偏薄（整局 62 / 逐局 121 例）——
+CS2 想和 LoL 同权，整局/逐局两个格都还要扩 3-5 倍样本。</li>
+<li>所以真正该做的不是"发明更多形态标签"，而是：① 把 60s 归档常态化，让粒度这一层升格；
+② 按 4 个主格分别累积到每种形态都够 20 例；③ 长尾形态（A6/A7/C2 早期缩距/B1/B3）单列观察区，不进策略层。</li>
+</ul></div>
+
+<h2>五、看形状</h2>
+<div class="tbl" style="background:#fff;border-radius:14px;padding:6px 10px">
+<a class="pg" href="pattern_charts_lol_tier1_2026-07_2026-10.html"><b>LoL 一级赛事曲线图 · 231 场（含逐局 194 场）</b><div>两条队伍赔率线 + 50c 交叉点，可按粒度筛选</div></a>
+<a class="pg" href="pattern_charts_cs2_tier1_2026-07_2026-10.html"><b>CS2 一级赛事曲线图 · 62 场（含逐局 60 场）</b><div>同上</div></a>
+<a class="pg" href="pattern_shapes_granularity.html"><b>粒度对照页</b><div>样本量与结论分别在 1 分钟级 / 10 分钟级上的归属</div></a>
+<a class="pg" href="pattern_shapes_index.html"><b>形态结构库总览</b><div>形态频次、深水占比、让一追二基准率、机械抄底期望值</div></a>
+<a class="pg" href="pattern_playbook.html"><b>形态速查（交易决策用）</b><div>每个形态的示意线条 + 真实样本 + 买点/卖点/失效</div></a>
+</div>
+</div></body></html>

@@ -1,0 +1,12 @@
+[Unit]
+Description=Run Pattern Decision live refresh every 5 minutes
+
+[Timer]
+OnBootSec=2min
+OnUnitActiveSec=5min
+RandomizedDelaySec=30s
+Persistent=true
+Unit=pattern-decision-live.service
+
+[Install]
+WantedBy=timers.target

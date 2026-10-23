@@ -1,0 +1,134 @@
+{
+  "version": "1.0",
+  "updated": "2026-10-15",
+  "description": "赛事分级（关键比赛过滤口径）。用途：形态库/情报页把非关键的资格赛、升降级赛、次级区域联赛与一级联赛样本分开统计，避免把'弱队互啄'的形态读成顶级赛事的形态。规则按顺序匹配 league_raw（原始赛事名），先判'其他'再判一级/二级。",
+  "default_tier": "其他",
+  "games": {
+    "LoL": {
+      "一级": [
+        "LCK Playoffs",
+        "LCK Regular",
+        "LCK Summer",
+        "LCK Spring",
+        "LPL Playoffs",
+        "LPL Regular",
+        "LPL Regional Finals",
+        "LPL Spring",
+        "LPL Summer",
+        "LEC Playoffs",
+        "LEC Regular",
+        "LEC Summer",
+        "LEC Spring",
+        "LCP Playoffs",
+        "LCP Group",
+        "LCP Regular",
+        "LCP Season",
+        "LCS Playoffs",
+        "LCS Regular",
+        "LCS Summer",
+        "LCS Spring",
+        "KeSPA",
+        "Kespa",
+        "Demacia",
+        "First Stand",
+        "Mid-Season Invitational",
+        "MSI",
+        "Worlds",
+        "LCK Round",
+        "LCK Play-In",
+        "LPL Group",
+        "LCP Swiss",
+        "EWC",
+        "Esports World Cup"
+      ],
+      "二级": [
+        "EMEA Masters",
+        "LCK Challengers",
+        "NACL",
+        "North American Challengers",
+        "VCS",
+        "CBLOL",
+        "TCL",
+        "LFL",
+        "Prime League",
+        "Arabian League",
+        "Hitpoint Masters",
+        "LIT",
+        "NLC",
+        "Rift Legends",
+        "LPLOL",
+        "HLL",
+        "EBL",
+        "Circuito Desafiante",
+        "Road Of Legends",
+        "LES",
+        "LGC Rising",
+        "WSCI",
+        "World Star Challengers",
+        "Asian Games"
+      ],
+      "其他": [
+        "Qualifier",
+        "Promotion",
+        ""
+      ]
+    },
+    "CS2": {
+      "一级": [
+        "ESL Pro League",
+        "IEM",
+        "BLAST",
+        "Esports World Cup",
+        "EWC",
+        "Thunderpick World Championship",
+        "PGL Major",
+        "PGL"
+      ],
+      "二级": [
+        "ESL Challenger",
+        "FISSURE",
+        "StarLadder",
+        "Stake Pulse Beat",
+        "ROG Journey",
+        "1win Private Club",
+        "Logitech G Play Connect",
+        "NODWIN",
+        "European Pro League",
+        "CCT",
+        "United21",
+        "ESEA",
+        "Dust2.dk",
+        "DACH"
+      ],
+      "其他": [
+        "Open Qualifier",
+        "Qualifier",
+        "Closed Qualifier",
+        "Play-In",
+        "Series #",
+        "European Series",
+        "South American Series",
+        "North American Series",
+        ""
+      ]
+    },
+    "Dota2": {
+      "一级": [
+        "The International",
+        "ESL One",
+        "BLAST Slam",
+        "PGL Wallachia",
+        "Riyadh Masters"
+      ],
+      "二级": [
+        "ESL Challenger",
+        "DreamLeague"
+      ],
+      "其他": [
+        "Qualifier",
+        "Open Qualifier",
+        ""
+      ]
+    }
+  }
+}

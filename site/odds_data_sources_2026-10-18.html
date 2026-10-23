@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>电竞分钟级赔率数据源调查 · 2026-10-18</title>
+<style>
+:root{--blue:#0071e3;--blue-soft:#e8f1fc;--bg:#f5f5f7;--card:#fff;--tx:#1d1d1f;--mu:#6e6e73;--bd:#e5e5ea;--green:#1d8f4e;--amber:#b25000;--red:#c7362c}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);font:15px/1.6 -apple-system,BlinkMacSystemFont,"PingFang SC","Helvetica Neue",Arial,sans-serif;-webkit-font-smoothing:antialiased}
+.top{background:#1d1d1f;color:#fff;padding:14px 22px;display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;align-items:center}
+.top b{font-weight:600;letter-spacing:.2px}.top span{color:#a1a1a6;font-size:12.5px}
+.wrap{max-width:1120px;margin:0 auto;padding:26px 18px 70px}
+.hero{padding:12px 2px 6px}
+.eyebrow{color:var(--blue);font-size:12.5px;font-weight:600;letter-spacing:.08em;text-transform:uppercase}
+h1{font-size:30px;line-height:1.25;margin:8px 0 10px;font-weight:650;letter-spacing:-.02em}
+.lede{color:#3a3a3c;font-size:16px;max-width:820px;margin:0}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:22px 0 8px}
+.kpi{background:var(--card);border-radius:16px;padding:16px 16px 14px;box-shadow:0 1px 2px rgba(0,0,0,.03)}
+.kpi .n{font-size:26px;font-weight:650;letter-spacing:-.02em}.kpi .n small{font-size:13px;font-weight:500;color:var(--mu);margin-left:2px}
+.kpi .l{color:var(--mu);font-size:12.5px;margin-top:3px}
+.card{background:var(--card);border-radius:16px;padding:20px 22px;margin:14px 0;box-shadow:0 1px 2px rgba(0,0,0,.03)}
+h2{font-size:19px;margin:4px 0 12px;font-weight:620;letter-spacing:-.01em}
+h3{font-size:15px;margin:18px 0 8px;font-weight:620}
+p{margin:8px 0}
+.muted{color:var(--mu);font-size:13px}
+.tag{display:inline-block;font-size:11px;padding:2px 8px;border-radius:999px;background:#ececf0;color:#5a5a5f;margin-left:6px;vertical-align:1px}
+.tag.g{background:#e7f6ec;color:var(--green)}.tag.a{background:#fff2e2;color:var(--amber)}.tag.r{background:#fdecea;color:var(--red)}.tag.b{background:var(--blue-soft);color:var(--blue)}
+.callout{border-left:3px solid var(--blue);background:linear-gradient(90deg,var(--blue-soft),#fbfdff);border-radius:0 12px 12px 0;padding:14px 16px;margin:14px 0}
+.callout b{font-weight:620}
+table{width:100%;border-collapse:collapse;font-size:13.5px}
+th,td{text-align:left;padding:10px 10px;border-bottom:1px solid var(--bd);vertical-align:top}
+th{color:var(--mu);font-weight:550;font-size:12.5px;white-space:nowrap}
+tr:last-child td{border-bottom:none}
+td.num{font-variant-numeric:tabular-nums;white-space:nowrap}
+.code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12.5px;background:#f5f5f7;border:1px solid var(--bd);border-radius:8px;padding:2px 6px;white-space:nowrap}
+pre{background:#1d1d1f;color:#f5f5f7;border-radius:12px;padding:14px 16px;overflow:auto;font:12.5px/1.55 ui-monospace,SFMono-Regular,Menlo,monospace}
+pre .c{color:#a1a1a6}.pre .k{color:#7cc4ff}
+.filters{display:flex;gap:8px;flex-wrap:wrap;margin:6px 0 12px}
+.btn{border:1px solid var(--bd);background:#fff;border-radius:9px;padding:6px 12px;font-size:13px;color:var(--tx);cursor:pointer}
+.btn.on{background:var(--blue);border-color:var(--blue);color:#fff}
+.src{display:none}.src.show{display:table-row}
+.verdict{display:grid;grid-template-columns:120px 1fr;gap:2px 14px;font-size:14px}
+.verdict .k{color:var(--mu)}.verdict .v{font-weight:550}
+.steps{counter-reset:s;list-style:none;padding:0;margin:0}
+.steps li{counter-increment:s;position:relative;padding:10px 0 10px 38px;border-bottom:1px solid var(--bd)}
+.steps li:last-child{border-bottom:none}
+.steps li:before{content:counter(s);position:absolute;left:0;top:9px;width:24px;height:24px;border-radius:50%;background:var(--blue);color:#fff;font-size:12px;font-weight:600;display:flex;align-items:center;justify-content:center}
+.steps b{font-weight:620}
+.foot{color:var(--mu);font-size:12.5px;margin-top:18px;text-align:center}
+@media(max-width:820px){.kpis{grid-template-columns:repeat(2,1fr)}h1{font-size:25px}.wrap{padding:18px 14px 50px}.card{padding:16px}table{font-size:12.5px}th,td{padding:8px 7px}}
+</style>
+</head>
+<body>
+<div class="top"><b>Polymarket 电竞情报库 · 数据源调查</b><span>实测 2026-10-18 · 只读请求</span></div>
+<div class="wrap">
+
+<div class="hero">
+  <div class="eyebrow">Data Source Review</div>
+  <h1>分钟级电竞赔率，最好的源其实就在 Polymarket</h1>
+  <p class="lede">此前“超过 24 小时只能拿到 10 分钟”的判断，是接口参数用错导致的。修正后，2026 年 7、8 月的老比赛同样能回溯 60 秒点；LoL、CS2、Dota2 都成立。下面把实测证据、其他平台与数据集一次列清。</p>
+</div>
+
+<div class="kpis">
+  <div class="kpi"><div class="n">60<small>s</small></div><div class="l">老比赛仍可回溯的采样间隔</div></div>
+  <div class="kpi"><div class="n">7<small>天</small></div><div class="l">单次请求实测可覆盖窗口</div></div>
+  <div class="kpi"><div class="n">0.0000</div><div class="l">60s 与 10min 重叠点最大价差</div></div>
+  <div class="kpi"><div class="n">12.7<small>亿笔</small></div><div class="l">公开链上成交数据集规模</div></div>
+</div>
+
+<div class="card">
+  <h2>先说结论</h2>
+  <div class="callout"><b>主源不变：Polymarket CLOB `/prices-history`。</b>请求只带 <span class="code">startTs / endTs / fidelity=1</span>，<u>不要带 <span class="code">interval</span></u>。带了 <span class="code">interval=1d</span> 就会被送进“最近 24 小时才细”的聚合路径，这才是过去误判的根因。</div>
+  <p>其他平台不是没有，而是各自缺一块：Kalshi 有官方 1 分钟 K 线但电竞盘极薄；Manifold 是 play money；Betfair 有真正的逐笔/价格阶梯历史，但要账户与付费，电竞深度也有限；The Odds API 只有 5 分钟快照；Abios / Bayes 是企业级实时数据，不公开历史。</p>
+  <p>所以当前最合理的组合是：<b>Polymarket 1 分钟价格做主形态</b>，<b>Polymarket 成交 tape 做真实性与成交量校验</b>，Kalshi / Manifold 只做低权重交叉参考，传统书商共识另用 5 分钟级数据。</p>
+  <p><b>已落地：</b>一级 LoL <b>231/231 场</b>、CS2 <b>62/62 场</b>已全部回填为真实 60s，世界赛入围赛 4 场也已完成；合计 297 个事件、1,914 个 <span class="code">.hires.jsonl</span>、1,183,045 个点。Dota2 已验证可回溯，但尚未建立独立形态分区，暂不混入统计。</p>
+</div>
+
+<div class="card">
+  <h2>一、实测证据</h2>
+  <table>
+    <thead><tr><th>验证项</th><th>样本</th><th>结果</th><th>说明</th></tr></thead>
+    <tbody>
+      <tr><td>老比赛 12h 窗口</td><td class="num">lol-t1-gen-2026-08-16</td><td class="num"><b>625 点/侧 · 60s</b></td><td>距今约 2 个月，仍返回分钟级</td></tr>
+      <tr><td>同一场 24h 窗口</td><td class="num">同上</td><td class="num">1345 点 · 60s</td><td>窗口越长点数越多，未降采样</td></tr>
+      <tr><td>同一场 7 天窗口</td><td class="num">同上</td><td class="num">9981 点 · 60s</td><td>跨度 166.4 小时</td></tr>
+      <tr><td>两种粒度一致性</td><td class="num">63 个重叠时间戳</td><td class="num">最大价差 0.0000</td><td>分钟点不是另一套价格</td></tr>
+      <tr><td>Dota2 老比赛</td><td class="num">dota2-vsn2-flc-2026-08-13</td><td class="num">492 点 · 60s</td><td>8.2 小时窗口</td></tr>
+      <tr><td>CS2 比赛</td><td class="num">cs2-furia-aur1-2026-10-17</td><td class="num">422 点 · 60s</td><td>12 小时窗口</td></tr>
+      <tr><td>成交 tape 深度</td><td class="num">lol-t1-gen G1</td><td class="num">offset 6000 仍有数据</td><td>单页 500 条，可完整分页</td></tr>
+      <tr><td>Kalshi 电竞盘</td><td class="num">KXLOLMAP MVK-KC</td><td class="num">G3 约 30 张 / G1 约 128 张</td><td>1 分钟 K 线可用，但深度不足</td></tr>
+    </tbody>
+  </table>
+  <h3>同一 token、同一时间窗，只改参数</h3>
+  <pre><span class="c"># 正确：不传 interval，按请求窗口返回分钟级</span>
+{startTs, endTs, fidelity: 1}                 <span class="c">-> 60s，625 点（12h）</span>
+
+<span class="c"># 旧工具：被送进聚合路径</span>
+{startTs, endTs, interval: "1d", fidelity: 1}  <span class="c">-> 0 点</span>
+{startTs, endTs, interval: "max", fidelity: 1} <span class="c">-> 1 点</span>
+{startTs, endTs, interval: "max", fidelity: 10}<span class="c">-> 600s</span></pre>
+</div>
+
+<div class="card">
+  <h2>二、平台与数据集清单</h2>
+  <div class="filters">
+    <button class="btn on" data-f="all">全部</button>
+    <button class="btn" data-f="pm">预测市场</button>
+    <button class="btn" data-f="book">传统博彩/交易所</button>
+    <button class="btn" data-f="ds">公开数据集</button>
+  </div>
+  <table>
+    <thead><tr><th>来源</th><th>电竞覆盖</th><th>历史粒度</th><th>获取方式</th><th>判断</th></tr></thead>
+    <tbody>
+      <tr class="src show" data-k="pm"><td><b>Polymarket</b><span class="tag g">主源</span></td><td>LoL / CS2 / Dota2 / Valorant</td><td class="num"><b>60s，可回溯</b></td><td>CLOB `/prices-history`；data-api `/trades`；Gamma `/events`</td><td>覆盖、流动性、历史长度最好；价格是采样观测，不是订单簿</td></tr>
+      <tr class="src show" data-k="pm"><td>Kalshi</td><td>146 个 Esports series；LoL/CS2/Dota2/Valorant 有盘</td><td class="num">1 分钟 K 线</td><td>官方 candlesticks API；HF `TrevorJS/kalshi-trades`</td><td><span class="tag a">薄</span> 单场几十到一百多张，报价常见 1c/99c，不能当主信号</td></tr>
+      <tr class="src show" data-k="pm"><td>Manifold</td><td>世界赛、T1 等</td><td class="num">下注级时间戳</td><td>`/v0/search-markets`、`/v0/bets`</td><td>play money，只做情绪/共识参考</td></tr>
+      <tr class="src show" data-k="pm"><td>SX Bet</td><td>有 “E Sports” 分类（sportId=9）</td><td class="num">链上成交</td><td>`/markets/active`、子图</td><td>电竞深度未验证，优先级低</td></tr>
+      <tr class="src show" data-k="pm"><td>Azuro / Overtime / Thales / Limitless</td><td>以传统体育为主</td><td class="num">链上事件</td><td>子图 / 合约</td><td>电竞覆盖薄，暂不纳入</td></tr>
+
+      <tr class="src show" data-k="book"><td>Betfair Exchange</td><td>有电竞，场次与深度有限</td><td class="num"><b>逐笔 / 完整价格阶梯</b></td><td>Historical Data：BASIC / ADVANCED（账户+付费）</td><td>若需要真实订单簿，这是传统侧最强；本次直连 403，未实测</td></tr>
+      <tr class="src show" data-k="book"><td>The Odds API</td><td>主流博彩公司的电竞盘</td><td class="num">5 分钟快照</td><td>Historical Odds API</td><td><span class="tag a">非 tick</span> 适合“书商共识”，不适合 1 分钟形态</td></tr>
+      <tr class="src show" data-k="book"><td>Abios（Kambi）</td><td>一级电竞覆盖强</td><td class="num">实时 / 历史</td><td>商业授权</td><td>企业级；不公开，成本和接入需谈</td></tr>
+      <tr class="src show" data-k="book"><td>Bayes Esports / Sportradar</td><td>一级赛事</td><td class="num">实时 / 历史</td><td>企业合同</td><td>同上；本次未能直连验证</td></tr>
+      <tr class="src show" data-k="book"><td>OddsPortal / BetExplorer / EGamersWorld</td><td>有电竞</td><td class="num">收盘 / 平均赔率</td><td>网页</td><td><span class="tag r">无分钟级</span> 只能做赛前/收盘对照</td></tr>
+
+      <tr class="src show" data-k="ds"><td>HF `SII-WANGZJ/Polymarket_data`</td><td>Polymarket 全历史</td><td class="num">秒级时间戳</td><td>12.7 亿笔成交 / 20.3 亿条 OrderFilled / 约 280GB</td><td><span class="tag g">全历史</span> 含价格、数量、maker/taker、condition_id</td></tr>
+      <tr class="src show" data-k="ds"><td>HF `TimeSeventeen/Polymarket-v2`</td><td>Polymarket v2</td><td class="num">链上事件</td><td>按 UTC 日分区，持续更新</td><td>大规模回测用</td></tr>
+      <tr class="src show" data-k="ds"><td>HF `vgregoire/polymarket-users`</td><td>用户级</td><td class="num">成交级</td><td>地址 / 盈亏 / 行为</td><td>赢家账户拆解</td></tr>
+      <tr class="src show" data-k="ds"><td>HF `TrevorJS/kalshi-trades`</td><td>Kalshi 全站</td><td class="num">微秒时间戳</td><td>1.545 亿笔成交 / 1746 万市场 / 2021-06~2026-01</td><td>Kalshi 历史研究</td></tr>
+      <tr class="src show" data-k="ds"><td>ZenHodl 订单簿档案</td><td>体育为主，电竞待确认</td><td class="num">L2 快照 + 比分同步</td><td>付费</td><td>需要“比分×盘口”联合研究时才考虑</td></tr>
+      <tr class="src show" data-k="ds"><td>DepthFeed</td><td>Polymarket 短周期 crypto</td><td class="num">事件驱动，中位 0.12s</td><td>付费</td><td>非电竞，暂不需要</td></tr>
+    </tbody>
+  </table>
+  <p class="muted">说明：表中“未实测/未能直连”的来源已明确标注；不要把网页上能看到的赔率当成有历史 API。</p>
+</div>
+
+<div class="card">
+  <h2>三、我们该怎么用</h2>
+  <ol class="steps">
+    <li><b>形态主数据：Polymarket CLOB 1 分钟。</b>只传 <span class="code">startTs / endTs / fidelity=1</span>；单场取结算前 8–12 小时，足够覆盖赛前与小局。</li>
+    <li><b>真实性校验：data-api `/trades`。</b>看每个 1 分钟点附近有没有成交、成交量和大单方向；成交价是 last trade，不能和中间价混成一条线。</li>
+    <li><b>全历史研究：链上数据集。</b>需要跨几千场、按地址/成交做微观结构时再用 `SII-WANGZJ/Polymarket_data`；日常回填走 API 更轻。</li>
+    <li><b>跨市场参考：Kalshi / Manifold。</b>只回答“另一个市场怎么想”，权重低；Kalshi 电竞盘深度不足，不能单独触发交易。</li>
+    <li><b>传统书商共识：The Odds API 5 分钟。</b>用于对照“博彩公司是否与 Polymarket 背离”，不用于 1 分钟形态。</li>
+    <li><b>新增交叉参考：Stake Odds Data API。</b>当前可读取 LoL / CS2 / Dota2 / NBA 十进制赔率，但无已验证历史与推送，且 live 可能整盘暂停；接入定位见 <a href="stake_odds_data_source_2026-10-22.html">2026-10-22 Stake 数据源评估</a>。</li>
+  </ol>
+</div>
+
+<div class="card">
+  <h2>四、口径与坑</h2>
+  <div class="verdict">
+    <div class="k">参数</div><div class="v">不要传 <span class="code">interval</span>；传了就会掉进聚合路径。</div>
+    <div class="k">价格含义</div><div class="v">60s 点是服务端采样，不是“每分钟一定有成交”；无成交分钟可能沿用前值。</div>
+    <div class="k">可成交性</div><div class="v">CLOB 价格没有 bid/ask 与深度，不能直接当滑点/成交假设。</div>
+    <div class="k">成交 tape</div><div class="v">last trade 会被大单拉偏；与 CLOB 点交叉后再下结论。</div>
+    <div class="k">Kalshi</div><div class="v">几十张成交、1c/99c 报价，不等于真实可交易深度。</div>
+    <div class="k">付费源</div><div class="v">Betfair / Abios / Bayes 是账户或合同制；“看得到”不等于“有历史 API”。</div>
+    <div class="k">落盘</div><div class="v">1 分钟回填写 <span class="code">.hires.jsonl</span>，不覆盖原 <span class="code">.jsonl</span>；读取端优先 `.hires`。</div>
+  </div>
+</div>
+
+<div class="card">
+  <h2>五、复现</h2>
+  <pre><span class="c"># 单场补 1 分钟（老比赛也可以）</span>
+python3 tools/fetch_price_snapshot.py --slug lol-t1-gen-2026-08-16 \
+  --full-history --hours-before-end 8 --outdir /tmp/probe
+
+<span class="c"># 批量补一级赛事（只写 .hires.jsonl）</span>
+python3 tools/backfill_minute_snapshots.py \
+  --section reports/pattern_shapes_lol_tier1_2026-07_2026-10.json \
+  --section reports/pattern_shapes_cs2_tier1_2026-07_2026-10.json \
+  --sleep 0.12</pre>
+  <p class="muted">验证时间：2026-10-18（Asia/Shanghai）。证据与数字来自本次只读请求；完整文字版见 <span class="code">knowledge/ODDS_DATA_SOURCES.md</span>。</p>
+</div>
+
+<p class="foot">Polymarket 电竞情报库 · 数据源调查 · 2026-10-18</p>
+</div>
+<script>
+const btns=document.querySelectorAll('.btn');
+btns.forEach(b=>b.addEventListener('click',()=>{
+  btns.forEach(x=>x.classList.remove('on')); b.classList.add('on');
+  const f=b.dataset.f;
+  document.querySelectorAll('.src').forEach(r=>{
+    r.classList.toggle('show', f==='all' || r.dataset.k===f);
+  });
+}));
+</script>
+</body>
+</html>

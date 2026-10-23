@@ -1,0 +1,19 @@
+[Unit]
+Description=Refresh Pattern Decision workspace from public Polymarket data
+Documentation=file:/opt/pattern-decision/README.md
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Type=oneshot
+User=www-data
+Group=www-data
+WorkingDirectory=/opt/pattern-decision
+ExecStart=/usr/bin/python3 /opt/pattern-decision/tools/update_pattern_decision_live.py --base-data /opt/pattern-decision/data/pattern_decision_data.json --template /opt/pattern-decision/tools/pattern_decision_workspace.template.html --watchlist /opt/pattern-decision/config/market_watchlist.json --out /var/www/pattern-decision/index.html --json-out /var/lib/pattern-decision/latest.json
+TimeoutStartSec=12min
+StateDirectory=pattern-decision
+ReadWritePaths=/var/www/pattern-decision /var/lib/pattern-decision
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true

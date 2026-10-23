@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230071e3'/%3E%3Cpath d='M14 42l10-14 8 9 18-23' stroke='white' stroke-width='6' fill='none' stroke-linecap='round'/%3E%3C/svg%3E">
+<title>赔率形态结构库 · LoL + CS2（2026-10-18）</title>
+<style>
+:root{--blue:#0071e3;--bg:#f5f5f7;--card:#fff;--tx:#1d1d1f;--mu:#6e6e73;--bd:#e5e5ea;--red:#ff453a}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);font:15px/1.55 -apple-system,BlinkMacSystemFont,"PingFang SC","Helvetica Neue",Arial,sans-serif}
+.bar-top{background:#1d1d1f;color:#fff;padding:14px 20px;display:flex;justify-content:space-between;align-items:center}
+.bar-top b{font-weight:600} .bar-top span{color:#a1a1a6;font-size:13px}
+html.embed .bar-top{display:none} html.embed .wrap{padding-top:14px}
+.wrap{max-width:1100px;margin:0 auto;padding:22px 16px 60px}
+h1{font-size:26px;margin:18px 0 6px;font-weight:600} h2{font-size:19px;margin:28px 0 10px;font-weight:600}
+.sub,.muted{color:var(--mu)} .sub{margin:0 0 18px}
+.card{background:var(--card);border-radius:14px;padding:16px;margin:10px 0}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin:16px 0 8px}
+.card .k{font-size:12px;color:var(--mu)} .card .v{font-size:24px;font-weight:600;margin-top:4px} .card .n{font-size:12px;color:var(--mu);margin-top:2px}
+.pg{display:block;background:var(--card);border-radius:14px;padding:14px 16px;margin:10px 0;text-decoration:none;color:var(--tx)}
+.pg b{font-weight:600} .pg div{color:var(--mu);font-size:13px;margin-top:4px}
+.bar{display:flex;align-items:center;gap:10px;margin:6px 0;font-size:13px}
+.bl{flex:0 0 210px;color:#3a3a3c} .bt{flex:1;background:#f2f2f7;height:10px;border-radius:5px;overflow:hidden}
+.bt i{display:block;height:100%} .bn{flex:0 0 90px;text-align:right;color:var(--mu)} .bn em{font-style:normal;color:#a1a1a6;margin-left:6px}
+table{width:100%;border-collapse:collapse;font-size:14px} th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--bd)}
+th{color:var(--mu);font-weight:500;font-size:13px} .pos{color:#1a7f37;font-weight:600} .neg{color:var(--red);font-weight:600}
+.tbl{padding:6px 10px;overflow-x:auto}
+li{margin:5px 0} .note{background:#fff;border-radius:14px;padding:14px 18px}
+</style>
+<script>if(location.search.indexOf("embed=1")>=0)document.documentElement.classList.add("embed");</script></head><body>
+<div class="bar-top"><b>Polymarket 电竞情报库 · 赔率形态结构库</b><span>LoL / CS2 分开统计 · 生成 2026-10-18</span></div>
+<div class="wrap">
+<h1>赔率形态结构库（逐小局/逐图 + 整局）</h1>
+<p class="sub">每场比赛的价格走势形态（A/B/C + 热门压制）沉淀进 docs/data/intel/price_paths.json，按胜方侧/负方侧分开统计。<b>只统计比赛内窗口</b>：赛前长平台、赛后结算平台、图间停滞均已剔除；LoL 与 CS2 的样本与统计不混算。</p>
+<div class="cards">
+<div class="card"><div class="k">形态库总量</div><div class="v">618</div><div class="n">price_paths.json 条目</div></div>
+<div class="card"><div class="k">本批比赛</div><div class="v">231 / 62</div><div class="n">LoL · CS2（不混算）</div></div>
+<div class="card"><div class="k">含逐局形态</div><div class="v">194 / 60</div><div class="n">LoL · CS2；其余仅有整局形态</div></div>
+<div class="card"><div class="k">数据粒度</div><div class="v">60s</div><div class="n">60s 293 场</div></div>
+</div>
+
+<h2>一、分段页面</h2>
+<a class='pg' href='pattern_shapes_lol_tier1_2026-07_2026-10.html'><b>2026-07-01 ~ 2026-10-15 · 231 场</b><div>LPL 50 / 国际赛 43 / LEC 33 / LCK 31 / KeSPA Cup 26 / 德杯 DCGI 19 / LCS 17 / LCP 12</div></a><a class='pg' href='pattern_charts_lol_tier1_2026-07_2026-10.html'><b>↳ 曲线图：2026-07-01 ~ 2026-10-15 · 231 场</b><div>把形态还原成图形——两条队伍赔率线 + 50c 交叉，可按粒度筛选</div></a><a class='pg' href='pattern_shapes_cs2_tier1_2026-07_2026-10.html'><b>2026-07-01 ~ 2026-10-15 · 62 场</b><div>其他赛区 52 / 国际赛 10</div></a><a class='pg' href='pattern_charts_cs2_tier1_2026-07_2026-10.html'><b>↳ 曲线图：2026-07-01 ~ 2026-10-15 · 62 场</b><div>把形态还原成图形——两条队伍赔率线 + 50c 交叉，可按粒度筛选</div></a><a class='pg' href='reference/PATTERN_STRUCTURE_LIBRARY.md'><b>形态结构库（知识库文档）</b><div>口径 / 频次 / 期望值 / 策略映射：knowledge/PATTERN_STRUCTURE_LIBRARY.md</div></a><a class='pg' href='reference/REVERSAL_PATTERN_LIBRARY.md'><b>形态定义（A1-C3 + 热门压制）</b><div>每个形态的图形特征、路由策略、正反例</div></a><a class='pg' href='pattern_playbook.html'><b>形态速查（交易决策用）</b><div>每个形态的示意线条 + 真实样本曲线 + 买点/卖点/失效条件</div></a><a class='pg' href='pattern_taxonomy.html'><b>形态分级体系：一共能搞出多少种</b><div>游戏 / 整局·逐局 / 胜方·负方 四主格 + 每格可用形态数与样本缺口</div></a><a class='pg' href='pattern_shapes_granularity.html'><b>粒度对照：1 分钟级 vs 10 分钟级</b><div>样本量、形态覆盖、关键结论分别建立在哪一档粒度上（60s 场次仅 3%）</div></a>
+
+<h2>LoL · 胜方侧形态频次</h2>
+<div class="card">
+<div class="sub" style="margin:0 0 6px">数据粒度构成：60s 231 场</div>
+<div class="sub" style="margin:0 0 6px">整局（分母 = 227 个赢家侧）</div><div class='bar'><span class='bl'>A3_折价修复</span><span class='bt'><i style='width:100.0%;background:#0071e3'></i></span><span class='bn'>95<em>42%</em></span></div>
+<div class='bar'><span class='bl'>热门全程压制</span><span class='bt'><i style='width:78.9%;background:#ff9f0a'></i></span><span class='bn'>75<em>33%</em></span></div>
+<div class='bar'><span class='bl'>A2_中位U型反转</span><span class='bt'><i style='width:71.6%;background:#0071e3'></i></span><span class='bn'>68<em>30%</em></span></div>
+<div class='bar'><span class='bl'>A4_下狗整场反转</span><span class='bt'><i style='width:58.9%;background:#0071e3'></i></span><span class='bn'>56<em>25%</em></span></div>
+<div class='bar'><span class='bl'>C2_五五开开局碾压</span><span class='bt'><i style='width:38.9%;background:#8e8e93'></i></span><span class='bn'>37<em>16%</em></span></div>
+<div class='bar'><span class='bl'>A1_V型极值反转</span><span class='bt'><i style='width:16.8%;background:#0071e3'></i></span><span class='bn'>16<em>7%</em></span></div>
+<div class='bar'><span class='bl'>A5_W型双底</span><span class='bt'><i style='width:12.6%;background:#0071e3'></i></span><span class='bn'>12<em>5%</em></span></div>
+<div class='bar'><span class='bl'>A6_反弹确认</span><span class='bt'><i style='width:4.2%;background:#0071e3'></i></span><span class='bn'>4<em>2%</em></span></div>
+<div class='bar'><span class='bl'>未知</span><span class='bt'><i style='width:1.1%;background:#c7c7cc'></i></span><span class='bn'>1<em>0%</em></span></div>
+<div class="sub" style="margin:14px 0 6px">逐小局（分母 = 491 个赢家侧）</div><div class='bar'><span class='bl'>A2_中位U型反转</span><span class='bt'><i style='width:100.0%;background:#0071e3'></i></span><span class='bn'>162<em>33%</em></span></div>
+<div class='bar'><span class='bl'>A3_折价修复</span><span class='bt'><i style='width:96.9%;background:#0071e3'></i></span><span class='bn'>157<em>32%</em></span></div>
+<div class='bar'><span class='bl'>C2_五五开开局碾压</span><span class='bt'><i style='width:74.1%;background:#8e8e93'></i></span><span class='bn'>120<em>24%</em></span></div>
+<div class='bar'><span class='bl'>热门全程压制</span><span class='bt'><i style='width:68.5%;background:#ff9f0a'></i></span><span class='bn'>111<em>23%</em></span></div>
+<div class='bar'><span class='bl'>A1_V型极值反转</span><span class='bt'><i style='width:25.3%;background:#0071e3'></i></span><span class='bn'>41<em>8%</em></span></div>
+<div class='bar'><span class='bl'>A5_W型双底</span><span class='bt'><i style='width:22.2%;background:#0071e3'></i></span><span class='bn'>36<em>7%</em></span></div>
+<div class='bar'><span class='bl'>A6_反弹确认</span><span class='bt'><i style='width:15.4%;background:#0071e3'></i></span><span class='bn'>25<em>5%</em></span></div>
+<div class='bar'><span class='bl'>C2_早期缩距/热门确立</span><span class='bt'><i style='width:4.9%;background:#8e8e93'></i></span><span class='bn'>8<em>2%</em></span></div>
+<div class='bar'><span class='bl'>A7_强强对话错杀</span><span class='bt'><i style='width:3.7%;background:#0071e3'></i></span><span class='bn'>6<em>1%</em></span></div>
+<div class='bar'><span class='bl'>未知</span><span class='bt'><i style='width:1.2%;background:#c7c7cc'></i></span><span class='bn'>2<em>0%</em></span></div>
+<div class="sub" style="margin:14px 0 6px">负方侧对照（整局，分母 = 227；B4 = 输家代币自然衰减，恒等式产物）</div><div class='bar'><span class='bl'>B4_直线阴跌</span><span class='bt'><i style='width:100.0%;background:#ff453a'></i></span><span class='bn'>175<em>77%</em></span></div>
+<div class='bar'><span class='bl'>B4_低开阴跌</span><span class='bt'><i style='width:35.4%;background:#ff453a'></i></span><span class='bn'>62<em>27%</em></span></div>
+<div class='bar'><span class='bl'>B2_死亡螺旋</span><span class='bt'><i style='width:14.9%;background:#ff453a'></i></span><span class='bn'>26<em>11%</em></span></div>
+<div class='bar'><span class='bl'>未知</span><span class='bt'><i style='width:8.6%;background:#c7c7cc'></i></span><span class='bn'>15<em>7%</em></span></div>
+<div class='bar'><span class='bl'>A5_W型双底</span><span class='bt'><i style='width:0.6%;background:#0071e3'></i></span><span class='bn'>1<em>0%</em></span></div>
+</div>
+
+<h2>LoL · 深水与让一追二</h2>
+<div class="card tbl"><table>
+<thead><tr><th>口径</th><th>整局</th><th>逐小局</th></tr></thead><tbody>
+<tr><td>赢家侧曾 ≤0.30</td><td>78 / 227 = 34%</td><td>173 / 491 = 35%</td></tr>
+<tr><td>赢家侧曾 ≤0.20</td><td>47 / 227 = 21%</td><td>96 / 491 = 20%</td></tr>
+<tr><td>赢家侧曾 ≤0.10</td><td>16 / 227 = 7%</td><td>41 / 491 = 8%</td></tr>
+</tbody></table></div>
+<div class="card tbl"><table>
+<thead><tr><th>让一追二（G1 输掉后仍赢整场）</th><th>系列赛</th><th>出现</th><th>基准率</th></tr></thead>
+<tbody><tr><td>BO3</td><td>125</td><td>26</td><td><b>21%</b></td></tr>
+<tr><td>BO5</td><td>62</td><td>19</td><td><b>31%</b></td></tr></tbody></table></div>
+
+<h2>CS2 · 胜方侧形态频次</h2>
+<div class="card">
+<div class="sub" style="margin:0 0 6px">数据粒度构成：60s 62 场</div>
+<div class="sub" style="margin:0 0 6px">整局（分母 = 62 个赢家侧）</div><div class='bar'><span class='bl'>A3_折价修复</span><span class='bt'><i style='width:100.0%;background:#0071e3'></i></span><span class='bn'>28<em>45%</em></span></div>
+<div class='bar'><span class='bl'>热门全程压制</span><span class='bt'><i style='width:67.9%;background:#ff9f0a'></i></span><span class='bn'>19<em>31%</em></span></div>
+<div class='bar'><span class='bl'>A2_中位U型反转</span><span class='bt'><i style='width:67.9%;background:#0071e3'></i></span><span class='bn'>19<em>31%</em></span></div>
+<div class='bar'><span class='bl'>A4_下狗整场反转</span><span class='bt'><i style='width:50.0%;background:#0071e3'></i></span><span class='bn'>14<em>23%</em></span></div>
+<div class='bar'><span class='bl'>C2_五五开开局碾压</span><span class='bt'><i style='width:25.0%;background:#8e8e93'></i></span><span class='bn'>7<em>11%</em></span></div>
+<div class='bar'><span class='bl'>A5_W型双底</span><span class='bt'><i style='width:10.7%;background:#0071e3'></i></span><span class='bn'>3<em>5%</em></span></div>
+<div class='bar'><span class='bl'>A7_强强对话错杀</span><span class='bt'><i style='width:7.1%;background:#0071e3'></i></span><span class='bn'>2<em>3%</em></span></div>
+<div class='bar'><span class='bl'>A1_V型极值反转</span><span class='bt'><i style='width:7.1%;background:#0071e3'></i></span><span class='bn'>2<em>3%</em></span></div>
+<div class='bar'><span class='bl'>A6_反弹确认</span><span class='bt'><i style='width:3.6%;background:#0071e3'></i></span><span class='bn'>1<em>2%</em></span></div>
+<div class="sub" style="margin:14px 0 6px">逐图（分母 = 121 个赢家侧）</div><div class='bar'><span class='bl'>A2_中位U型反转</span><span class='bt'><i style='width:100.0%;background:#0071e3'></i></span><span class='bn'>40<em>33%</em></span></div>
+<div class='bar'><span class='bl'>A3_折价修复</span><span class='bt'><i style='width:92.5%;background:#0071e3'></i></span><span class='bn'>37<em>31%</em></span></div>
+<div class='bar'><span class='bl'>C2_五五开开局碾压</span><span class='bt'><i style='width:87.5%;background:#8e8e93'></i></span><span class='bn'>35<em>29%</em></span></div>
+<div class='bar'><span class='bl'>热门全程压制</span><span class='bt'><i style='width:57.5%;background:#ff9f0a'></i></span><span class='bn'>23<em>19%</em></span></div>
+<div class='bar'><span class='bl'>A5_W型双底</span><span class='bt'><i style='width:25.0%;background:#0071e3'></i></span><span class='bn'>10<em>8%</em></span></div>
+<div class='bar'><span class='bl'>A1_V型极值反转</span><span class='bt'><i style='width:12.5%;background:#0071e3'></i></span><span class='bn'>5<em>4%</em></span></div>
+<div class='bar'><span class='bl'>C2_早期缩距/热门确立</span><span class='bt'><i style='width:7.5%;background:#8e8e93'></i></span><span class='bn'>3<em>2%</em></span></div>
+<div class='bar'><span class='bl'>未知</span><span class='bt'><i style='width:7.5%;background:#c7c7cc'></i></span><span class='bn'>3<em>2%</em></span></div>
+<div class='bar'><span class='bl'>A6_反弹确认</span><span class='bt'><i style='width:2.5%;background:#0071e3'></i></span><span class='bn'>1<em>1%</em></span></div>
+<div class="sub" style="margin:14px 0 6px">负方侧对照（整局，分母 = 62；B4 = 输家代币自然衰减，恒等式产物）</div><div class='bar'><span class='bl'>B4_直线阴跌</span><span class='bt'><i style='width:100.0%;background:#ff453a'></i></span><span class='bn'>50<em>81%</em></span></div>
+<div class='bar'><span class='bl'>B4_低开阴跌</span><span class='bt'><i style='width:30.0%;background:#ff453a'></i></span><span class='bn'>15<em>24%</em></span></div>
+<div class='bar'><span class='bl'>B2_死亡螺旋</span><span class='bt'><i style='width:12.0%;background:#ff453a'></i></span><span class='bn'>6<em>10%</em></span></div>
+<div class='bar'><span class='bl'>未知</span><span class='bt'><i style='width:10.0%;background:#c7c7cc'></i></span><span class='bn'>5<em>8%</em></span></div>
+</div>
+
+<h2>CS2 · 深水与让一追二</h2>
+<div class="card tbl"><table>
+<thead><tr><th>口径</th><th>整局</th><th>逐图</th></tr></thead><tbody>
+<tr><td>赢家侧曾 ≤0.30</td><td>22 / 62 = 35%</td><td>35 / 121 = 29%</td></tr>
+<tr><td>赢家侧曾 ≤0.20</td><td>8 / 62 = 13%</td><td>17 / 121 = 14%</td></tr>
+<tr><td>赢家侧曾 ≤0.10</td><td>2 / 62 = 3%</td><td>5 / 121 = 4%</td></tr>
+</tbody></table></div>
+<div class="card tbl"><table>
+<thead><tr><th>让一追二（G1 输掉后仍赢整场）</th><th>系列赛</th><th>出现</th><th>基准率</th></tr></thead>
+<tbody><tr><td>BO3</td><td>58</td><td>15</td><td><b>26%</b></td></tr>
+<tr><td>BO5</td><td>2</td><td>0</td><td><b>0%</b></td></tr></tbody></table></div>
+
+<h2>三、期望值：机械抄底回测</h2>
+<div class="card tbl"><table>
+<thead><tr><th>游戏</th><th>粒度</th><th>阈值</th><th>整局 n</th><th>命中率</th><th>单笔 ROI</th><th>逐图/小局 n</th><th>命中率</th><th>单笔 ROI</th></tr></thead>
+<tbody><tr><td>LoL</td><td>60s</td><td>0.35</td><td>153</td><td>32%</td><td class='pos'>+0.19</td><td>336</td><td>33%</td><td class='pos'>+0.21</td></tr>
+<tr><td>LoL</td><td>60s</td><td>0.30</td><td>147</td><td>29%</td><td class='pos'>+0.25</td><td>316</td><td>29%</td><td class='pos'>+0.20</td></tr>
+<tr><td>LoL</td><td>60s</td><td>0.25</td><td>137</td><td>24%</td><td class='pos'>+0.24</td><td>296</td><td>24%</td><td class='pos'>+0.23</td></tr>
+<tr><td>LoL</td><td>60s</td><td>0.20</td><td>128</td><td>19%</td><td class='pos'>+0.19</td><td>282</td><td>20%</td><td class='pos'>+0.21</td></tr>
+<tr><td>LoL</td><td>60s</td><td>0.15</td><td>117</td><td>12%</td><td class='neg'>-0.03</td><td>260</td><td>13%</td><td class='pos'>+0.15</td></tr>
+<tr><td>LoL</td><td>60s</td><td>0.10</td><td>111</td><td>7%</td><td class='neg'>-0.07</td><td>250</td><td>10%</td><td class='pos'>+0.25</td></tr>
+<tr><td>CS2</td><td>60s</td><td>0.35</td><td>41</td><td>22%</td><td class='neg'>-0.33</td><td>86</td><td>33%</td><td class='pos'>+0.05</td></tr>
+<tr><td>CS2</td><td>60s</td><td>0.30</td><td>39</td><td>18%</td><td class='neg'>-0.36</td><td>78</td><td>26%</td><td class='neg'>-0.02</td></tr>
+<tr><td>CS2</td><td>60s</td><td>0.25</td><td>35</td><td>9%</td><td class='neg'>-0.61</td><td>74</td><td>22%</td><td class='neg'>-0.01</td></tr>
+<tr><td>CS2</td><td>60s</td><td>0.20</td><td>35</td><td>9%</td><td class='neg'>-0.54</td><td>69</td><td>16%</td><td class='neg'>-0.04</td></tr>
+<tr><td>CS2</td><td>60s</td><td>0.15</td><td>34</td><td>6%</td><td class='neg'>-0.52</td><td>66</td><td>12%</td><td class='pos'>+0.14</td></tr>
+<tr><td>CS2</td><td>60s</td><td>0.10</td><td>33</td><td>3%</td><td class='neg'>-0.49</td><td>60</td><td>3%</td><td class='neg'>-0.50</td></tr></tbody></table></div>
+<p class="muted" style="font-size:13px">口径：任一 side 的价格首次触及阈值价即买入，持有到结算；胜 = 结算价 ≥0.5 记 (1/买入价−1)，负 = −1。
+<b>两档粒度分开算，禁止合并成一个结论</b>。两档的 n 与 ROI <u>不构成直接证据</u>，因为差异同时来自三处：
+① 采样精度（60s 能看到 600s 采样点之间漏掉的深水触点）；② 窗口起点（两档都只算比赛内，但 60s 归档起点可能略晚于开赛）；
+③ 2026-10-18 起一级赛事已全量回填 60s，不再存在“60s 只覆盖少量场次”的选择性偏差；
+   但 60s 仍是采样价格（无成交分钟沿用前值），不是订单簿。
+当前 60s 样本量：见上表 n 列；60s 分组只用于<b>观察</b>，不得用于策略取舍。
+<b>结论必须按游戏、按粒度分开读</b>：CS2 的深水机械抄底仍呈明显负期望；LoL 在改为比赛内窗口后，部分阈值不再稳定为负。
+这不等于"抄底可行"——它只说明旧全窗口口径下的"深水必负"不能直接套到新口径。任何下单仍必须叠加信号筛选与仓位纪律，禁止把两游戏 ROI 平均。</p>
+
+<h2>四、口径与缺口</h2>
+<div class="note"><ul>
+<li><b>标签含义</b>（分类器 v1.3 实际会输出的 16 个）：A1 V型极值反转 / A2 中位U型反转 / A3 折价修复 / A4 下狗整场反转 / A5 W型双底 / A6 反弹确认 / A7 强强对话错杀 / B1 尾盘崩塌 / B2 死亡螺旋 / B3 假反弹后归零 / B4 直线阴跌 / B4 低开阴跌 / C1 中位震荡 / C2 五五开开局碾压 / C2 早期缩距·热门确立 / 热门全程压制。
+<b>C3 中位震荡后突破</b>：形态手册（REVERSAL_PATTERN_LIBRARY.md）中有定义，但分类器尚未实现，当前不会输出（不应计入形态种类数）。</li>
+<li><b>比赛内窗口（2026-10-18 起）</b>：所有形态统计只使用开赛到结算之间的价格段。起点 = 价格离开赛前基线后的第一段持续移动（向前保留约 3 分钟），终点 = 首次进入结算平台（≈100c / ≈0c）；第二局起以前一局结算后为下限，图间停滞不计入。旧的全窗口（含赛前 ~24-36h 与赛后平台）数据完整备份在 <code>reports/archive/pattern_backup_2026-10-18/</code>，<b>新旧口径不可直接混算</b>。</li>
+<li><b>粒度（两档口径，勿混算）</b>：<b>600s</b> = 未回填/仅拿到 10 分钟采样的市场（一个小局/地图约 45 分钟 = 4-6 个点，标签只作方向参考）；<b>60s</b> = 用 <code>startTs/endTs + fidelity=1</code>（不传 interval）回溯的分钟级序列。<b>2026-10-18 起一级赛事已全量回填 60s</b>（LoL 231/231、CS2 62/62）。</li>
+<li><b>分钟级可回溯（2026-10-18 修正）</b>：此前“超过 24 小时只能拿 600s”是旧工具固定传 <code>interval=1d</code> 导致的误判；不传 interval 时，2 个月前的老比赛仍可返回 60s（实测 7 天窗口 9981 点）。归档工具 tools/backfill_minute_snapshots.py（只写 .hires，不覆盖原 600s）。</li>
+<li><b>结果</b>：以 Polymarket 结算价定胜负；比分由逐局归属统计，决胜局无独立市场时按整场结算归属补足（条目里注明）。</li>
+<li><b>游戏不混算</b>：LoL 与 CS2 的赛制、地图/小局结构、盘口深度都不同；本页所有频次、深水比例、让一追二与抄底回测均按游戏分开，禁止合并成一个结论。</li>
+<li><b>CS2 结构差异</b>：Polymarket 的 CS2 BO3 只开 Map 1 / Map 2 胜者盘（Map 3 只有 Rounds 盘），决胜图按整场归属补足，已在 result 标注。</li>
+<li><b>赛事分级（2026-10-15 起）</b>：<b>本库只收一级（关键）赛事</b>——
+一级 = LCK/LPL/LEC/LCP/LCS/KeSPA/德杯/国际赛；CS2 的 ESL Pro League/IEM/BLAST/EWC/Thunderpick 正赛。
+EMEA Masters、小区域联赛、资格赛/升降级赛已按用户指令剔除（LoL −276 场、CS2 −7 场），
+原始快照与旧全分级 JSON 仍留档、不参与出数。<br>分级口径：config/esports_tiers.json ·
+判定 tools/esports_tier.py · 回归 tests/test_esports_tier.py ·
+见 <a href='pattern_taxonomy.html'>形态分级体系</a> 与 <a href='pattern_playbook.html'>形态速查</a>。</li>
+<li><b>尚未采集</b>：CS2 三级赛事（ESEA / CCT / Dust2.dk / United21 等）按已定口径<b>不纳入</b>；Thunderpick 正赛已并入一级口径（10-14 两场），PGL / Thunderpick 资格赛（约 56 场事件）<b>待定</b>；10-15 之后的比赛待赛后回补。</li>
+</ul></div>
+</div></body></html>
