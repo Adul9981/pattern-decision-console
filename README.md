@@ -64,12 +64,12 @@ python3 tools/update_pattern_decision_live.py \
 - 网站：`/var/www/pattern-decision`
 - 刷新状态：`/var/lib/pattern-decision`
 
-先让服务器具备访问这个私有仓库的权限（SSH deploy key 或 GitHub 已授权账号），再执行：
+仓库地址为 <https://github.com/Adul9981/pattern-decision-console>，GitHub 因地址字符限制使用英文名 `pattern-decision-console`，项目标题仍是“形态决策台”。仓库为私有，先让所有者把朋友的 GitHub 账号加入 Collaborator，或给服务器配置只读 Deploy Key，再执行：
 
 ```bash
 sudo apt-get update
 sudo apt-get install -y python3 nginx rsync
-sudo git clone YOUR_GITHUB_PRIVATE_REPO_URL /opt/pattern-decision
+sudo git clone git@github.com:Adul9981/pattern-decision-console.git /opt/pattern-decision
 cd /opt/pattern-decision
 sudo bash scripts/install.sh
 ```
